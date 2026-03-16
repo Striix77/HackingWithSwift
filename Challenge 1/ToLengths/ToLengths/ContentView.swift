@@ -59,7 +59,8 @@ struct ContentView: View {
                             Text(String(describing: unit).capitalized)
                         }
                     }
-
+                }
+                Section("Enter the value to be converted") {
                     HStack {
                         TextField("", value: $inputLength, format: .number)
                             .fixedSize()
