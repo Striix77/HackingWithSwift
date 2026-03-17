@@ -46,6 +46,14 @@ struct Watermark: ViewModifier {
     }
 }
 
+struct ProminentTitle: ViewModifier {
+    func body(content: Content) -> some View{
+        content
+            .font(.largeTitle)
+            .foregroundStyle(.blue)
+    }
+}
+
 struct ContentView: View {
     @State private var useRedBg = true
     let motto1 = Text("Draco dormiens")
@@ -82,6 +90,7 @@ struct ContentView: View {
                 spells
             }
             .padding()
+            .prominent()
             
             Button("Hello, world!") {
                 print(type(of: self.body))
@@ -122,6 +131,10 @@ extension View {
     
     func watermarked(with text: String) -> some View {
         modifier(Watermark(text: text))
+    }
+    
+    func prominent() -> some View{
+        modifier(ProminentTitle())
     }
 }
 
