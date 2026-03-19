@@ -65,22 +65,45 @@ struct ContentView: View {
         shouldWin = Bool.random()
         showAlert = false
     }
-    
+
     func resetGame() {
         resetGameLogic()
         playerScore = 0
         botScore = 0
     }
-    
-    var showResetButton:Bool {
+
+    var showResetButton: Bool {
         playerScore > 0 || botScore > 0
     }
 
     var body: some View {
         NavigationView {
             ZStack {
-                Color(red: 0.1, green: 0.6, blue: 0.75, opacity: 1)
-                    .ignoresSafeArea()
+                LinearGradient(
+                    stops: [
+                        .init(
+                            color: Color(
+                                red: 0.1,
+                                green: 0.6,
+                                blue: 0.75,
+                                opacity: 1
+                            ),
+                            location: 0.0
+                        ),
+                        .init(
+                            color: Color(
+                                red: 0.9,
+                                green: 0.5,
+                                blue: 0.1,
+                                opacity: 1
+                            ),
+                            location: 1.0
+                        ),
+                    ],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .ignoresSafeArea()
                 VStack {
                     HStack {
                         Text("You: \(playerScore)")
@@ -116,7 +139,7 @@ struct ContentView: View {
 
                     VStack(spacing: 100) {
                         Text(currentMove.emoji)
-                            .font(.system(size: 70))
+                            .font(.system(size: 80))
                         Text("vs.")
                             .font(.title)
                         HStack(spacing: 50) {
@@ -125,12 +148,11 @@ struct ContentView: View {
                                     processPlayerChoice(move)
                                 }
                                 .buttonStyle(.borderless)
-                                .font(.system(size: 70))
+                                .font(.system(size: 80))
                             }
                         }
 
                     }
-                    Spacer()
                     Spacer()
 
                     Button("Reset") {
@@ -142,18 +164,16 @@ struct ContentView: View {
                     .font(.title3)
                     .foregroundStyle(
                         Color(
-                            red: 0.5,
-                            green: 0.2,
-                            blue: 0.2,
+                            red: 0.1,
+                            green: 0.1,
+                            blue: 0.1,
                             opacity: 1
                         )
                     )
-                    
+
                 }
 
             }
-            .navigationTitle("Guided RPS")
-            .navigationBarTitleDisplayMode(.inline)
             .alert(
                 alertTitle,
                 isPresented: $showAlert
