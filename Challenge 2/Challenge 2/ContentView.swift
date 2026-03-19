@@ -37,13 +37,8 @@ enum Moves: String, CaseIterable {
 struct ContentView: View {
     @State private var currentMove: Moves = .random()
     @State private var shouldWin: Bool = Bool.random()
-    @State private var score: Int = 0 {
-        didSet{
-            if score < 0 {
-                score = 0
-            }
-        }
-    }
+    @State private var playerScore: Int = 0
+    @State private var botScore: Int = 0
     @State private var showAlert: Bool = false
     @State private var alertTitle: String = ""
     @State private var alertDetails: String = ""
@@ -54,73 +49,106 @@ struct ContentView: View {
         {
             alertTitle = "You Win!"
             alertDetails = "Nice job! You sure showed the randomizer!"
-            score += 10
+            playerScore += 1
         } else {
             alertTitle = "You Lose!"
             alertDetails = "Well well...\nBetter luck next time champ!"
-            score -= 10
-            
+            botScore += 1
+
         }
         showAlert = true
 
     }
 
-    func resetGame() {
+    func resetGameLogic() {
         currentMove = .random()
         shouldWin = Bool.random()
         showAlert = false
     }
+    
+    func resetGame() {
+        resetGameLogic()
+        playerScore = 0
+        botScore = 0
+    }
+    
+    var showResetButton:Bool {
+        playerScore > 0 || botScore > 0
+    }
 
     var body: some View {
         NavigationView {
-            VStack {
-                ZStack {
-                    Color(red: 0.1, green: 0.6, blue: 0.75, opacity: 1)
-                        .ignoresSafeArea()
-                    VStack {
-                        Text("Score: \(score)")
-                            .font(.largeTitle)
-                        Text("Current move: \(currentMove.emoji)")
+            ZStack {
+                Color(red: 0.1, green: 0.6, blue: 0.75, opacity: 1)
+                    .ignoresSafeArea()
+                VStack {
+                    HStack {
+                        Text("You: \(playerScore)")
+                            .font(.title3)
+                        Spacer()
+                        Text("Bot: \(botScore)")
+                            .font(.title3)
+                    }
+                    .padding(.horizontal, 10)
+                    HStack {
+                        Text("You should try to")
                             .font(.title)
-                        HStack {
-                            Text("You should try to")
-                                .font(.title)
-                            Text("\(shouldWin ? "win" : "lose")")
-                                .font(.title)
-                                .foregroundStyle(
-                                    shouldWin
-                                        ? Color(
-                                            red: 0.4,
-                                            green: 0.9,
-                                            blue: 0.4,
-                                            opacity: 1
-                                        )
-                                        : Color(
-                                            red: 0.5,
-                                            green: 0.2,
-                                            blue: 0.2,
-                                            opacity: 1
-                                        )
-                                )
-                        }
-
-                        Spacer()
-
-                        VStack {
-                            HStack {
-                                ForEach(Moves.allCases, id: \.self) { move in
-                                    Button(move.emoji) {
-                                        processPlayerChoice(move)
-                                    }
-                                    .buttonStyle(.bordered)
-                                    .font(.system(size: 70))
-                                }
-                            }
-                        }
-                        Spacer()
-
+                        Text("\(shouldWin ? "win" : "lose")")
+                            .font(.title)
+                            .foregroundStyle(
+                                shouldWin
+                                    ? Color(
+                                        red: 0.4,
+                                        green: 0.9,
+                                        blue: 0.4,
+                                        opacity: 1
+                                    )
+                                    : Color(
+                                        red: 0.5,
+                                        green: 0.2,
+                                        blue: 0.2,
+                                        opacity: 1
+                                    )
+                            )
                     }
 
+                    Spacer()
+
+                    VStack(spacing: 100) {
+                        Text(currentMove.emoji)
+                            .font(.system(size: 70))
+                        Text("vs.")
+                            .font(.title)
+                        HStack(spacing: 50) {
+                            ForEach(Moves.allCases, id: \.self) { move in
+                                Button(move.emoji) {
+                                    processPlayerChoice(move)
+                                }
+                                .buttonStyle(.borderless)
+                                .font(.system(size: 70))
+                            }
+                        }
+
+                    }
+                    Spacer()
+                    Spacer()
+
+                    Button("Reset") {
+                        resetGame()
+                    }
+                    .opacity(showResetButton ? 1.0 : 0.0)
+                    .disabled(!showResetButton)
+                    .buttonStyle(.bordered)
+                    .font(.title3)
+                    .foregroundStyle(
+                        Color(
+                            red: 0.5,
+                            green: 0.2,
+                            blue: 0.2,
+                            opacity: 1
+                        )
+                    )
+                    
                 }
 
             }
@@ -131,7 +159,7 @@ struct ContentView: View {
                 isPresented: $showAlert
             ) {
                 Button("Continue") {
-                    resetGame()
+                    resetGameLogic()
                 }
             } message: {
                 Text(alertDetails)
