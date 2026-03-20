@@ -8,49 +8,39 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var sleepAmount: Double = 8.0
     @State private var wakeUp = Date.now
-
-    let components = Calendar.current.dateComponents(
-        [.hour, .minute],
-        from: Date.now
-    )
-    var hour: Int { components.hour ?? 0 }
-    var minute: Int { components.minute ?? 0 }
-
+    @State private var sleepAmount = 8.0
+    @State private var coffeeAmount = 1
     var body: some View {
-        VStack {
-            Stepper(
-                "\(sleepAmount.formatted()) hours",
-                value: $sleepAmount,
-                in: 0...16,
-                step: 0.25
-            )
-            DatePicker("Please enter a date", selection: $wakeUp)
-                .labelsHidden()
-            DatePicker(
-                "Please enter a date",
-                selection: $wakeUp,
-                displayedComponents: .hourAndMinute
-            )
-            .labelsHidden()
-            DatePicker(
-                "Please enter a date",
-                selection: $wakeUp,
-                in: Date.now...
-            )
-            Text(Date.now, format: .dateTime.hour().minute())
-            Text(Date.now, format: .dateTime.day().month().year())
-            Text(Date.now.formatted(date: .long, time: .shortened))
+        NavigationStack{
+            VStack{
+                Text("When do you want to wake up?")
+                
+                DatePicker("Please enter a time", selection: $wakeUp, displayedComponents: .hourAndMinute)
+                    .labelsHidden()
+
+                Text("Desired amount of sleep")
+                    .font(.headline)
+                Stepper("\(sleepAmount.formatted()) hours", value: $sleepAmount, in: 4...12, step: 0.25)
+
+                Text("Daily coffee intake")
+                    .font(.headline)
+                Stepper("\(coffeeAmount) cup(s)", value: $coffeeAmount, in:1...20)
+            }
+            .navigationTitle("BetterRest")
+            .toolbar{
+                Button("Calculate"){
+                    calculateBedtime()
+                }
+            }
         }
-        .padding()
+    }
+    
+    func calculateBedtime(){
+        
     }
 }
 
-//func exampleDates() {
-//    let tomorrow = Date.now.addingTimeInterval(86400)
-//    let range = Date.now...tomorrow
-//}
 
 #Preview {
     ContentView()
