@@ -93,7 +93,7 @@ struct ContentView: View {
     }
 
     func isOriginal(_ word: String) -> Bool {
-        !usedWords.contains(word)
+        word != rootWord && !usedWords.contains(word)
     }
 
     func isPossible(_ word: String) -> Bool {
