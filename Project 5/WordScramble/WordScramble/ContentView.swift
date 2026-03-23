@@ -17,6 +17,24 @@ struct ContentView: View {
     @State private var showingError = false
     
     @State private var score = 0
+    init() {
+        UINavigationBar.appearance().titleTextAttributes = [
+            .foregroundColor: UIColor(
+                red: 0.863,
+                green: 0.863,
+                blue: 0.863,
+                alpha: 1
+            )
+        ]
+        UINavigationBar.appearance().largeTitleTextAttributes = [
+            .foregroundColor: UIColor(
+                red: 0.863,
+                green: 0.863,
+                blue: 0.863,
+                alpha: 1
+            )
+        ]
+    }
 
     var body: some View {
         NavigationStack {
