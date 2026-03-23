@@ -73,7 +73,8 @@ struct ContentView: View {
                         }
                     }
                 }
-                .navigationTitle(rootWord)
+                .navigationTitle("WordScramble")
+                .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .bottomBar) {
                         Button("Restart") {
