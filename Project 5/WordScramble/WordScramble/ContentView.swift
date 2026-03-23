@@ -42,6 +42,11 @@ struct ContentView: View {
                         startGame()
                     }
                 }
+                
+                ToolbarItem(placement: .topBarTrailing){
+                    Text("Score: \(score)")
+                        .padding()
+                }
             }
         }
         .onSubmit(addNewWord)
@@ -51,13 +56,7 @@ struct ContentView: View {
         } message: {
             Text(errorMessage)
         }
-        .toolbar {
-            ToolbarItem(placement: .bottomBar){
-                Button("Restart") {
-                }
-            }
-            
-        }
+        
 
     }
 
