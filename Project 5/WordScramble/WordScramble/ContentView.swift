@@ -44,6 +44,28 @@ struct ContentView: View {
                     .ignoresSafeArea()
                 List {
                     Section {
+                        HStack{
+                            Spacer()
+                            Text(rootWord)
+                                .font(.largeTitle)
+                            Spacer()
+                        }
+                        
+                            
+                    }
+                    .listRowBackground(
+                        Color(red: 0.18, green: 0.294, blue: 0.38)
+                    )
+                    .foregroundStyle(
+                        Color(
+                            red: 0.863,
+                            green: 0.863,
+                            blue: 0.863,
+                            opacity: 1
+                        )
+                    )
+                    
+                    Section {
                         TextField(
                             "",
                             text: $newWord,
@@ -62,10 +84,12 @@ struct ContentView: View {
                     Section {
                         ForEach(usedWords, id: \.self) { word in
                             HStack {
+                                Spacer()
                                 Image(systemName: "\(word.count).circle")
                                     .foregroundStyle(Color.white)
                                 Text(word)
                                     .foregroundStyle(Color.white)
+                                Spacer()
                             }
                             .listRowBackground(
                                 Color(red: 0.145, green: 0.239, blue: 0.31)
