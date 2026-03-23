@@ -20,9 +20,9 @@ struct ContentView: View {
 
     var body: some View {
         NavigationStack {
-            List {
-                Section {
-                    TextField("Enter your word", text: $newWord)
+            ZStack {
+                Color(red: 0.18, green: 0.294, blue: 0.38)
+                    .ignoresSafeArea()
                         .textInputAutocapitalization(.never)
                 }
 
@@ -52,12 +52,19 @@ struct ContentView: View {
         .onSubmit(addNewWord)
         .onAppear(perform: startGame)
         .alert(errorTitle, isPresented: $showingError) {
+            }
+                .scrollContentBackground(.hidden)
 
-        } message: {
-            Text(errorMessage)
+            }
+            .onSubmit(addNewWord)
+            .onAppear(perform: startGame)
+            .alert(errorTitle, isPresented: $showingError) {
+
+            } message: {
+                Text(errorMessage)
+            }
+
         }
-        
-
     }
 
     func startGame() {
