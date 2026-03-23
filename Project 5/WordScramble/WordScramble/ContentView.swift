@@ -67,7 +67,9 @@ struct ContentView: View {
             in: .whitespacesAndNewlines
         )
 
-        guard answer.count > 0 else { return }
+        guard !isTooShort(answer) else {
+            wordError(title: "Word is too short!", message: "Length does matter!")
+            return }
         
         guard isOriginal(answer) else {
             wordError(title: "Word used already!", message: "Try another one!")
@@ -119,6 +121,10 @@ struct ContentView: View {
         )
 
         return misspelledRange.location == NSNotFound
+    }
+    
+    func isTooShort(_ word: String) -> Bool {
+        word.count < 3
     }
 
     func wordError(title: String, message: String) {
