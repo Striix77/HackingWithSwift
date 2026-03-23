@@ -64,6 +64,9 @@ struct ContentView: View {
             ) {
                 let allWords = startWords.components(separatedBy: "\n")
                 rootWord = allWords.randomElement() ?? "moist"
+                withAnimation{
+                    usedWords.removeAll()
+                }
                 return
             }
         }
