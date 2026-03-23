@@ -15,6 +15,8 @@ struct ContentView: View {
     @State private var errorTitle = ""
     @State private var errorMessage = ""
     @State private var showingError = false
+    
+    @State private var score = 0
 
     var body: some View {
         NavigationStack {
@@ -73,6 +75,7 @@ struct ContentView: View {
                 withAnimation{
                     usedWords.removeAll()
                 }
+                score = 0
                 return
             }
         }
@@ -106,6 +109,7 @@ struct ContentView: View {
         withAnimation {
             usedWords.insert(answer, at: 0)
         }
+        score += answer.count
         newWord = ""
     }
 
