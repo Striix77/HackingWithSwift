@@ -34,6 +34,13 @@ struct ContentView: View {
                 }
             }
             .navigationTitle(rootWord)
+            .toolbar {
+                ToolbarItem(placement: .bottomBar){
+                    Button("Restart") {
+                        startGame()
+                    }
+                }
+            }
         }
         .onSubmit(addNewWord)
         .onAppear(perform: startGame)
@@ -45,7 +52,6 @@ struct ContentView: View {
         .toolbar {
             ToolbarItem(placement: .bottomBar){
                 Button("Restart") {
-                    startGame()
                 }
             }
             
