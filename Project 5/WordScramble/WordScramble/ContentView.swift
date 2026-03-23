@@ -13,13 +13,24 @@ struct ContentView: View {
     @State private var newWord = ""
     
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack{
+            List{
+                Section {
+                    TextField("Enter your word", text: $newWord)
+                        .textInputAutocapitalization(.never)
+                }
+                
+                Section{
+                    ForEach(usedWords, id:\.self) { word in
+                        HStack{
+                            Image(systemName: "\(word.count).circle")
+                            Text(word)
+                        }
+                    }
+                }
+            }
         }
-        .padding()
+        .navigationTitle(rootWord)
     }
 }
 
