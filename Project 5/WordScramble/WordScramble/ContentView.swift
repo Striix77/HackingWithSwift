@@ -15,8 +15,9 @@ struct ContentView: View {
     @State private var errorTitle = ""
     @State private var errorMessage = ""
     @State private var showingError = false
-    
+
     @State private var score = 0
+
     init() {
         UINavigationBar.appearance().titleTextAttributes = [
             .foregroundColor: UIColor(
@@ -41,36 +42,50 @@ struct ContentView: View {
             ZStack {
                 Color(red: 0.18, green: 0.294, blue: 0.38)
                     .ignoresSafeArea()
+                List {
+                    Section {
+                        TextField(
+                            "",
+                            text: $newWord,
+                            prompt: Text("Enter your word").foregroundStyle(
+                                Color.gray
+                            )
+                        )
                         .textInputAutocapitalization(.never)
-                }
+                        .foregroundStyle(Color.white)
 
-                Section {
-                    ForEach(usedWords, id: \.self) { word in
-                        HStack {
-                            Image(systemName: "\(word.count).circle")
-                            Text(word)
+                    }
+                    .listRowBackground(
+                        Color(red: 0.145, green: 0.239, blue: 0.31)
+                    )
+
+                    Section {
+                        ForEach(usedWords, id: \.self) { word in
+                            HStack {
+                                Image(systemName: "\(word.count).circle")
+                                    .foregroundStyle(Color.white)
+                                Text(word)
+                                    .foregroundStyle(Color.white)
+                            }
+                            .listRowBackground(
+                                Color(red: 0.145, green: 0.239, blue: 0.31)
+                            )
                         }
                     }
                 }
-            }
-            .navigationTitle(rootWord)
-            .toolbar {
-                ToolbarItem(placement: .bottomBar){
-                    Button("Restart") {
-                        startGame()
+                .navigationTitle(rootWord)
+                .toolbar {
+                    ToolbarItem(placement: .bottomBar) {
+                        Button("Restart") {
+                            startGame()
+                        }
+                    }
+
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Text("Score: \(score)")
+                            .padding()
                     }
                 }
-                
-                ToolbarItem(placement: .topBarTrailing){
-                    Text("Score: \(score)")
-                        .padding()
-                }
-            }
-        }
-        .onSubmit(addNewWord)
-        .onAppear(perform: startGame)
-        .alert(errorTitle, isPresented: $showingError) {
-            }
                 .scrollContentBackground(.hidden)
 
             }
@@ -96,7 +111,7 @@ struct ContentView: View {
             ) {
                 let allWords = startWords.components(separatedBy: "\n")
                 rootWord = allWords.randomElement() ?? "moist"
-                withAnimation{
+                withAnimation {
                     usedWords.removeAll()
                 }
                 score = 0
@@ -112,21 +127,32 @@ struct ContentView: View {
         )
 
         guard !isTooShort(answer) else {
-            wordError(title: "Word is too short!", message: "Length does matter!")
-            return }
-        
+            wordError(
+                title: "Word is too short!",
+                message: "Length does matter!"
+            )
+            return
+        }
+
         guard isOriginal(answer) else {
             wordError(title: "Word used already!", message: "Try another one!")
             return
         }
-        
+
         guard isPossible(answer) else {
-            wordError(title: "Word not possible!", message: "You can't spell that word from '\(rootWord)''s letters!")
+            wordError(
+                title: "Word not possible!",
+                message:
+                    "You can't spell that word from '\(rootWord)''s letters!"
+            )
             return
         }
-        
+
         guard isReal(answer) else {
-            wordError(title: "Word not recognized!", message: "You can't just make 'em up!")
+            wordError(
+                title: "Word not recognized!",
+                message: "You can't just make 'em up!"
+            )
             return
         }
 
@@ -167,7 +193,7 @@ struct ContentView: View {
 
         return misspelledRange.location == NSNotFound
     }
-    
+
     func isTooShort(_ word: String) -> Bool {
         word.count < 3
     }
