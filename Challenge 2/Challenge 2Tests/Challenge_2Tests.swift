@@ -29,5 +29,18 @@ struct Challenge_2Tests {
         #expect(viewModel.alertTitle == "You Win!")
     }
 
-    
+    @Test("resetGameLogic() keeps scores but hides alert")
+    func testResetGameLogic() async throws {
+        let viewModel = GameViewModel()
+        viewModel.playerScore = 7
+        viewModel.botScore = 5
+        viewModel.showAlert = true
+
+        viewModel.resetGameLogic()
+
+        #expect(viewModel.playerScore == 7)
+        #expect(viewModel.botScore == 5)
+        #expect(viewModel.showAlert == false)
+    }
+
 }
