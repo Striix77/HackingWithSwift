@@ -58,7 +58,18 @@ struct ContentView: View {
     @State private var useRedBg = true
     let motto1 = Text("Draco dormiens")
     let motto2 = Text("nunquam titillandus")
-
+    
+    var body: some View {
+        ScrollView {
+            blurryText
+            welcomeTitles
+            colorChangingButton
+            capsules
+            multiPaddedWelcome
+            watermarkedRectangle
+        }
+    }
+    
     var spells: some View {
         Group {
             Text("Lumos")
@@ -128,17 +139,6 @@ struct ContentView: View {
         Color.blue
             .frame(width: 300, height: 200)
             .watermarked(with: "Hacking with Swift")
-    }
-    
-    var body: some View {
-        ScrollView {
-            blurryText
-            welcomeTitles
-            colorChangingButton
-            capsules
-            multiPaddedWelcome
-            watermarkedRectangle
-        }
     }
 }
 
