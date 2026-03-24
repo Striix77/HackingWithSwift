@@ -30,22 +30,11 @@ struct ContentView: View {
 
                     Spacer()
 
-                    VStack(spacing: 100) {
-                        Text(currentMove.emoji)
-                            .font(.system(size: 80))
-                        Text("vs.")
-                            .font(.title)
-                        HStack(spacing: 50) {
-                            ForEach(Moves.allCases, id: \.self) { move in
-                                Button(move.emoji) {
-                                    processPlayerChoice(move)
-                                }
-                                .buttonStyle(.borderless)
-                                .font(.system(size: 80))
-                            }
-                        }
+                    MoveSelectionView(
+                        currentMove: currentMove,
+                        processPlayerChoice: processPlayerChoice
+                    )
 
-                    }
                     Spacer()
 
                     Button("Reset") {
@@ -176,6 +165,28 @@ struct InstructionView: View {
                             opacity: 1
                         )
                 )
+        }
+    }
+}
+
+struct MoveSelectionView: View {
+    let currentMove: Moves
+    let processPlayerChoice: (Moves) -> Void
+    var body: some View {
+        VStack(spacing: 100) {
+            Text(currentMove.emoji)
+                .font(.system(size: 80))
+            Text("vs.")
+                .font(.title)
+            HStack(spacing: 50) {
+                ForEach(Moves.allCases, id: \.self) { move in
+                    Button(move.emoji) {
+                        processPlayerChoice(move)
+                    }
+                    .buttonStyle(.borderless)
+                    .font(.system(size: 80))
+                }
+            }
         }
     }
 }
