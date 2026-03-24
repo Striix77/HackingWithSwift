@@ -16,35 +16,6 @@ struct ContentView: View {
     @State private var alertTitle: String = ""
     @State private var alertDetails: String = ""
 
-    func processPlayerChoice(_ playerMove: Moves) {
-        if (shouldWin && playerMove.beats(currentMove))
-            || (!shouldWin && !playerMove.beats(currentMove))
-        {
-            alertTitle = "You Win!"
-            alertDetails = "Nice job! You sure showed the randomizer!"
-            playerScore += 1
-        } else {
-            alertTitle = "You Lose!"
-            alertDetails = "Well well...\nBetter luck next time champ!"
-            botScore += 1
-
-        }
-        showAlert = true
-
-    }
-
-    func resetGameLogic() {
-        currentMove = .random()
-        shouldWin = Bool.random()
-        showAlert = false
-    }
-
-    func resetGame() {
-        resetGameLogic()
-        playerScore = 0
-        botScore = 0
-    }
-
     var showResetButton: Bool {
         playerScore > 0 || botScore > 0
     }
@@ -158,6 +129,35 @@ struct ContentView: View {
                 Text(alertDetails)
             }
         }
+    }
+    
+    func processPlayerChoice(_ playerMove: Moves) {
+        if (shouldWin && playerMove.beats(currentMove))
+            || (!shouldWin && !playerMove.beats(currentMove))
+        {
+            alertTitle = "You Win!"
+            alertDetails = "Nice job! You sure showed the randomizer!"
+            playerScore += 1
+        } else {
+            alertTitle = "You Lose!"
+            alertDetails = "Well well...\nBetter luck next time champ!"
+            botScore += 1
+
+        }
+        showAlert = true
+
+    }
+
+    func resetGameLogic() {
+        currentMove = .random()
+        shouldWin = Bool.random()
+        showAlert = false
+    }
+
+    func resetGame() {
+        resetGameLogic()
+        playerScore = 0
+        botScore = 0
     }
 }
 
