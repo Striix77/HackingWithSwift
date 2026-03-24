@@ -25,14 +25,7 @@ struct ContentView: View {
             ZStack {
                 backgroundGradient
                 VStack {
-                    HStack {
-                        Text("You: \(playerScore)")
-                            .font(.title3)
-                        Spacer()
-                        Text("Bot: \(botScore)")
-                            .font(.title3)
-                    }
-                    .padding(.horizontal, 10)
+                    ScoreView(playerScore: playerScore, botScore: botScore)
                     HStack {
                         Text("You should try to")
                             .font(.title)
@@ -162,6 +155,21 @@ struct ContentView: View {
         resetGameLogic()
         playerScore = 0
         botScore = 0
+    }
+}
+
+struct ScoreView: View {
+    let playerScore: Int
+    let botScore: Int
+    var body: some View {
+        HStack {
+            Text("You: \(playerScore)")
+                .font(.title3)
+            Spacer()
+            Text("Bot: \(botScore)")
+                .font(.title3)
+        }
+        .padding(.horizontal, 10)
     }
 }
 
