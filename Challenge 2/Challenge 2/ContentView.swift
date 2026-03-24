@@ -108,12 +108,12 @@ struct ContentView: View {
         }
 
         if didWin {
-            alertTitle = "You Win!"
-            alertDetails = "Nice job! You sure showed the randomizer!"
+            alertTitle = GameStrings.winTitle
+            alertDetails = GameStrings.winDetails
             playerScore += 1
         } else {
-            alertTitle = "You Lose!"
-            alertDetails = "Well well...\nBetter luck next time champ!"
+            alertTitle = GameStrings.loseTitle
+            alertDetails = GameStrings.loseDetails
             botScore += 1
 
         }
