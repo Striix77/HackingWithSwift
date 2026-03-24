@@ -124,6 +124,12 @@ struct ContentView: View {
             .titleStyle()  // CUSTOM MODIFIER
     }
 
+    var watermarkedRectangle: some View{
+        Color.blue
+            .frame(width: 300, height: 200)
+            .watermarked(with: "Hacking with Swift")
+    }
+    
     var body: some View {
         ScrollView {
             blurryText
@@ -131,13 +137,7 @@ struct ContentView: View {
             colorChangingButton
             capsules
             multiPaddedWelcome
-            
-
-            
-
-            Color.blue
-                .frame(width: 300, height: 200)
-                .watermarked(with: "Hacking with Swift")
+            watermarkedRectangle
         }
     }
 }
