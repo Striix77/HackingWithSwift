@@ -93,18 +93,22 @@ struct ContentView: View {
         .padding()
         .prominent()
     }
+    
+    var colorChangingButton: some View {
+        Button("Hello, world!") {
+            print(type(of: self.body))
+            useRedBg.toggle()
+        }
+        .frame(width: 200, height: 200)
+        .background(useRedBg ? .red : .green)
+    }
 
     var body: some View {
         ScrollView {
             blurryText
             welcomeTitles
-
-            Button("Hello, world!") {
-                print(type(of: self.body))
-                useRedBg.toggle()
-            }
-            .frame(width: 200, height: 200)
-            .background(useRedBg ? .red : .green)
+            colorChangingButton
+            
 
             VStack(spacing: 10) {
                 CapsuleText(text: "First")
