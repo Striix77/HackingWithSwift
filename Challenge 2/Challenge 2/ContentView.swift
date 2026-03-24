@@ -82,7 +82,7 @@ struct ContentView: View {
         )
         .ignoresSafeArea()
     }
-    
+
     var resetButton: some View {
         Button("Reset") {
             resetGame()
@@ -102,9 +102,12 @@ struct ContentView: View {
     }
 
     func processPlayerChoice(_ playerMove: Moves) {
-        if (shouldWin && playerMove.beats(currentMove))
-            || (!shouldWin && !playerMove.beats(currentMove))
-        {
+        var didWin: Bool {
+            (shouldWin && playerMove.beats(currentMove))
+                || (!shouldWin && !playerMove.beats(currentMove))
+        }
+
+        if didWin {
             alertTitle = "You Win!"
             alertDetails = "Nice job! You sure showed the randomizer!"
             playerScore += 1
