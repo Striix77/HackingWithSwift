@@ -36,7 +36,17 @@ final class ViewsAndModifiersUITests: XCTestCase {
         toggleButton.tap()
     }
     
-    
+    @MainActor
+    func testGryffindorIsVisible() throws {
+        let app = XCUIApplication()
+        app.launch()
+        
+        let gryffindorText = app.staticTexts["Gryffindor"]
+        
+        XCTAssertTrue(gryffindorText.exists, "Gryffindor should be on the screen!")
+        
+        
+    }
     @MainActor
     func testLaunchPerformance() throws {
         // This measures how long it takes to launch your application.
