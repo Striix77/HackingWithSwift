@@ -47,6 +47,23 @@ final class ViewsAndModifiersUITests: XCTestCase {
         
         
     }
+    
+    @MainActor
+    func testAppCanScrollToBottom() throws {
+        let app = XCUIApplication()
+        app.launch()
+        
+        let bottomElement = app.descendants(matching: .any)["Watermark"]
+        
+        var swipeCount = 0
+        while !bottomElement.isHittable && swipeCount < 5 {
+            app.swipeUp()
+            swipeCount += 1
+        }
+        
+        XCTAssertTrue(bottomElement.isHittable, "User should be able to scroll to the bottom of the app!")
+    }
+    
     @MainActor
     func testLaunchPerformance() throws {
         // This measures how long it takes to launch your application.
