@@ -37,21 +37,7 @@ struct ContentView: View {
 
                     Spacer()
 
-                    Button("Reset") {
-                        resetGame()
-                    }
-                    .opacity(showResetButton ? 1.0 : 0.0)
-                    .disabled(!showResetButton)
-                    .buttonStyle(.bordered)
-                    .font(.title3)
-                    .foregroundStyle(
-                        Color(
-                            red: 0.1,
-                            green: 0.1,
-                            blue: 0.1,
-                            opacity: 1
-                        )
-                    )
+                    resetButton
 
                 }
 
@@ -95,6 +81,24 @@ struct ContentView: View {
             endPoint: .bottom
         )
         .ignoresSafeArea()
+    }
+    
+    var resetButton: some View {
+        Button("Reset") {
+            resetGame()
+        }
+        .opacity(showResetButton ? 1.0 : 0.0)
+        .disabled(!showResetButton)
+        .buttonStyle(.bordered)
+        .font(.title3)
+        .foregroundStyle(
+            Color(
+                red: 0.1,
+                green: 0.1,
+                blue: 0.1,
+                opacity: 1
+            )
+        )
     }
 
     func processPlayerChoice(_ playerMove: Moves) {
