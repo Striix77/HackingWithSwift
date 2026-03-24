@@ -23,14 +23,20 @@ final class ViewsAndModifiersUITests: XCTestCase {
     }
 
     @MainActor
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    func testColorButtonTogglesWithoutCrashing() throws {
         let app = XCUIApplication()
         app.launch()
-
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
+        let toggleButton = app.buttons["ColorChangingButton"]
+        
+        XCTAssertTrue(toggleButton.exists, "The toggle button should be visible.")
+        
+        toggleButton.tap()
+        
+        toggleButton.tap()
     }
-
+    
+    
     @MainActor
     func testLaunchPerformance() throws {
         // This measures how long it takes to launch your application.

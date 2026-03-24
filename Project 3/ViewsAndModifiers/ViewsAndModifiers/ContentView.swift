@@ -112,6 +112,7 @@ struct ContentView: View {
         }
         .frame(width: 200, height: 200)
         .background(useRedBg ? .red : .green)
+        .accessibilityIdentifier("ColorChangingButton")
     }
     
     var capsules: some View {
