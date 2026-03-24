@@ -109,6 +109,20 @@ struct ContentView: View {
             CapsuleText(text: "Second")
         }
     }
+    
+    var multiPaddedWelcome: some View {
+        Text("Hello, world!")
+            .padding()
+            .background(.red)
+            .padding()
+            .background(.blue)
+            .padding()
+            .background(.green)
+            .padding()
+            .background(.yellow)
+            .modifier(Title())  // CUSTOM MODIFIER
+            .titleStyle()  // CUSTOM MODIFIER
+    }
 
     var body: some View {
         ScrollView {
@@ -116,20 +130,10 @@ struct ContentView: View {
             welcomeTitles
             colorChangingButton
             capsules
-
+            multiPaddedWelcome
             
 
-            Text("Hello, world!")
-                .padding()
-                .background(.red)
-                .padding()
-                .background(.blue)
-                .padding()
-                .background(.green)
-                .padding()
-                .background(.yellow)
-                .modifier(Title())  // CUSTOM MODIFIER
-                .titleStyle()  // CUSTOM MODIFIER
+            
 
             Color.blue
                 .frame(width: 300, height: 200)
