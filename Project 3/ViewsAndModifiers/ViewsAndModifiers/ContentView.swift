@@ -47,7 +47,7 @@ struct Watermark: ViewModifier {
 }
 
 struct ProminentTitle: ViewModifier {
-    func body(content: Content) -> some View{
+    func body(content: Content) -> some View {
         content
             .font(.largeTitle)
             .foregroundStyle(.blue)
@@ -66,44 +66,47 @@ struct ContentView: View {
         }
     }
 
+    var blurryText: some View {
+        VStack {
+            Text("Gryffindor")
+                .font(.largeTitle)
+                .blur(radius: 0)
+            Text("Hufflepuff")
+            Text("Ravenclaw")
+            Text("Slytherin")
+            motto1
+            motto2
+        }
+        .font(.title)
+        .blur(radius: 5)
+    }
+
     var body: some View {
-        ScrollView{
-            VStack {
-                Text("Gryffindor")
-                    .font(.largeTitle)
-                    .blur(radius: 0)
-                Text("Hufflepuff")
-                Text("Ravenclaw")
-                Text("Slytherin")
-                motto1
-                motto2
-            }
-            .font(.title)
-            .blur(radius: 5)
-            
+        ScrollView {
+            blurryText
             VStack {
                 Image(systemName: "globe")
                     .imageScale(.large)
                     .foregroundStyle(.tint)
                 Text("Hello, world!")
-                
+
                 spells
             }
             .padding()
             .prominent()
-            
+
             Button("Hello, world!") {
                 print(type(of: self.body))
                 useRedBg.toggle()
             }
             .frame(width: 200, height: 200)
             .background(useRedBg ? .red : .green)
-            
+
             VStack(spacing: 10) {
                 CapsuleText(text: "First")
                 CapsuleText(text: "Second")
             }
-            
+
             Text("Hello, world!")
                 .padding()
                 .background(.red)
@@ -115,8 +118,7 @@ struct ContentView: View {
                 .background(.yellow)
                 .modifier(Title())  // CUSTOM MODIFIER
                 .titleStyle()  // CUSTOM MODIFIER
-            
-            
+
             Color.blue
                 .frame(width: 300, height: 200)
                 .watermarked(with: "Hacking with Swift")
@@ -128,12 +130,12 @@ extension View {
     func titleStyle() -> some View {
         modifier(Title())
     }
-    
+
     func watermarked(with text: String) -> some View {
         modifier(Watermark(text: text))
     }
-    
-    func prominent() -> some View{
+
+    func prominent() -> some View {
         modifier(ProminentTitle())
     }
 }
