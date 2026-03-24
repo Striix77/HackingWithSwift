@@ -26,27 +26,7 @@ struct ContentView: View {
                 backgroundGradient
                 VStack {
                     ScoreView(playerScore: playerScore, botScore: botScore)
-                    HStack {
-                        Text("You should try to")
-                            .font(.title)
-                        Text("\(shouldWin ? "win" : "lose")")
-                            .font(.title)
-                            .foregroundStyle(
-                                shouldWin
-                                    ? Color(
-                                        red: 0.4,
-                                        green: 0.9,
-                                        blue: 0.4,
-                                        opacity: 1
-                                    )
-                                    : Color(
-                                        red: 0.5,
-                                        green: 0.2,
-                                        blue: 0.2,
-                                        opacity: 1
-                                    )
-                            )
-                    }
+                    InstructionView(shouldWin: shouldWin)
 
                     Spacer()
 
@@ -170,6 +150,33 @@ struct ScoreView: View {
                 .font(.title3)
         }
         .padding(.horizontal, 10)
+    }
+}
+
+struct InstructionView: View {
+    let shouldWin: Bool
+    var body: some View {
+        HStack {
+            Text("You should try to")
+                .font(.title)
+            Text("\(shouldWin ? "win" : "lose")")
+                .font(.title)
+                .foregroundStyle(
+                    shouldWin
+                        ? Color(
+                            red: 0.4,
+                            green: 0.9,
+                            blue: 0.4,
+                            opacity: 1
+                        )
+                        : Color(
+                            red: 0.5,
+                            green: 0.2,
+                            blue: 0.2,
+                            opacity: 1
+                        )
+                )
+        }
     }
 }
 
