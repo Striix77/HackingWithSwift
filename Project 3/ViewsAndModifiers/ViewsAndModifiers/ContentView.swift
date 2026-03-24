@@ -80,20 +80,24 @@ struct ContentView: View {
         .font(.title)
         .blur(radius: 5)
     }
+    
+    var welcomeTitles : some View{
+        VStack {
+            Image(systemName: "globe")
+                .imageScale(.large)
+                .foregroundStyle(.tint)
+            Text("Hello, world!")
+
+            spells
+        }
+        .padding()
+        .prominent()
+    }
 
     var body: some View {
         ScrollView {
             blurryText
-            VStack {
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
-                Text("Hello, world!")
-
-                spells
-            }
-            .padding()
-            .prominent()
+            welcomeTitles
 
             Button("Hello, world!") {
                 print(type(of: self.body))
