@@ -23,31 +23,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                LinearGradient(
-                    stops: [
-                        .init(
-                            color: Color(
-                                red: 0.1,
-                                green: 0.6,
-                                blue: 0.75,
-                                opacity: 1
-                            ),
-                            location: 0.0
-                        ),
-                        .init(
-                            color: Color(
-                                red: 0.9,
-                                green: 0.5,
-                                blue: 0.1,
-                                opacity: 1
-                            ),
-                            location: 1.0
-                        ),
-                    ],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .ignoresSafeArea()
+                backgroundGradient
                 VStack {
                     HStack {
                         Text("You: \(playerScore)")
@@ -130,7 +106,35 @@ struct ContentView: View {
             }
         }
     }
-    
+
+    var backgroundGradient: some View {
+        LinearGradient(
+            stops: [
+                .init(
+                    color: Color(
+                        red: 0.1,
+                        green: 0.6,
+                        blue: 0.75,
+                        opacity: 1
+                    ),
+                    location: 0.0
+                ),
+                .init(
+                    color: Color(
+                        red: 0.9,
+                        green: 0.5,
+                        blue: 0.1,
+                        opacity: 1
+                    ),
+                    location: 1.0
+                ),
+            ],
+            startPoint: .top,
+            endPoint: .bottom
+        )
+        .ignoresSafeArea()
+    }
+
     func processPlayerChoice(_ playerMove: Moves) {
         if (shouldWin && playerMove.beats(currentMove))
             || (!shouldWin && !playerMove.beats(currentMove))
