@@ -10,8 +10,13 @@ import Testing
 
 struct ViewsAndModifiersTests {
 
-    @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
-    }
+    @Test("CapsuleText correctly stores its display text")
+        func capsuleTextInitialization() async throws {
+            let expectedText = "Capsule test"
+            
+            let capsule = CapsuleText(text: expectedText)
+            
+            #expect(capsule.text == expectedText)
+        }
 
 }
