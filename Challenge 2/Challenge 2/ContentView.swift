@@ -8,31 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var currentMove: Moves = .random()
-    @State private var shouldWin: Bool = Bool.random()
-    @State private var playerScore: Int = 0
-    @State private var botScore: Int = 0
-    @State private var showAlert: Bool = false
-    @State private var alertTitle: LocalizedStringKey = ""
-    @State private var alertDetails: LocalizedStringKey = ""
-
-    var showResetButton: Bool {
-        playerScore > 0 || botScore > 0
-    }
+    
+    @State private var viewModel = GameViewModel()
 
     var body: some View {
         NavigationView {
             ZStack {
                 backgroundGradient
                 VStack {
-                    ScoreView(playerScore: playerScore, botScore: botScore)
-                    InstructionView(shouldWin: shouldWin)
+                    ScoreView(playerScore: viewModel.playerScore, botScore: viewModel.botScore)
+                    InstructionView(shouldWin: viewModel.shouldWin)
 
                     Spacer()
 
                     MoveSelectionView(
-                        currentMove: currentMove,
-                        processPlayerChoice: processPlayerChoice
+                        currentMove: viewModel.currentMove,
+                        processPlayerChoice: viewModel.processPlayerChoice
                     )
 
                     Spacer()
@@ -43,14 +34,14 @@ struct ContentView: View {
 
             }
             .alert(
-                alertTitle,
-                isPresented: $showAlert
+                viewModel.alertTitle,
+                isPresented: $viewModel.showAlert
             ) {
                 Button("Continue") {
-                    resetGameLogic()
+                    viewModel.resetGameLogic()
                 }
             } message: {
-                Text(alertDetails)
+                Text(viewModel.alertDetails)
             }
         }
     }
@@ -85,10 +76,10 @@ struct ContentView: View {
 
     var resetButton: some View {
         Button("Reset") {
-            resetGame()
+            viewModel.resetGame()
         }
-        .opacity(showResetButton ? 1.0 : 0.0)
-        .disabled(!showResetButton)
+        .opacity(viewModel.showResetButton ? 1.0 : 0.0)
+        .disabled(!viewModel.showResetButton)
         .buttonStyle(.bordered)
         .font(.title3)
         .foregroundStyle(
@@ -101,37 +92,7 @@ struct ContentView: View {
         )
     }
 
-    func processPlayerChoice(_ playerMove: Moves) {
-        var didWin: Bool {
-            (shouldWin && playerMove.beats(currentMove))
-                || (!shouldWin && !playerMove.beats(currentMove))
-        }
-
-        if didWin {
-            alertTitle = GameStrings.winTitle
-            alertDetails = GameStrings.winDetails
-            playerScore += 1
-        } else {
-            alertTitle = GameStrings.loseTitle
-            alertDetails = GameStrings.loseDetails
-            botScore += 1
-
-        }
-        showAlert = true
-
-    }
-
-    func resetGameLogic() {
-        currentMove = .random()
-        shouldWin = Bool.random()
-        showAlert = false
-    }
-
-    func resetGame() {
-        resetGameLogic()
-        playerScore = 0
-        botScore = 0
-    }
+    
 }
 
 struct ScoreView: View {
