@@ -7,33 +7,6 @@
 
 import SwiftUI
 
-enum Moves: String, CaseIterable {
-    case rock, paper, scissors
-
-    static func random() -> Moves {
-        return allCases.randomElement() ?? .rock
-    }
-
-    var emoji: String {
-        switch self {
-        case .rock: return "🪨"
-        case .paper: return "📄"
-        case .scissors: return "✂️"
-        }
-    }
-
-    func beats(_ move: Moves) -> Bool {
-        switch self {
-        case .rock:
-            return move != Moves.rock && move != Moves.paper
-        case .paper:
-            return move != Moves.paper && move != Moves.scissors
-        case .scissors:
-            return move != Moves.scissors && move != Moves.rock
-        }
-    }
-}
-
 struct ContentView: View {
     @State private var currentMove: Moves = .random()
     @State private var shouldWin: Bool = Bool.random()
