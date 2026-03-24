@@ -19,4 +19,13 @@ struct ViewsAndModifiersTests {
             #expect(capsule.text == expectedText)
         }
 
+        @Test("Watermark modifier correctly stores the watermark text")
+        func watermarkInitialization() async throws {
+            let expectedWatermark = "Watermark text"
+            
+            let watermarkModifier = Watermark(text: expectedWatermark)
+            
+            #expect(watermarkModifier.text == expectedWatermark)
+        }
+
 }
