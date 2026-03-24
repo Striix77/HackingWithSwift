@@ -102,18 +102,22 @@ struct ContentView: View {
         .frame(width: 200, height: 200)
         .background(useRedBg ? .red : .green)
     }
+    
+    var capsules: some View {
+        VStack(spacing: 10) {
+            CapsuleText(text: "First")
+            CapsuleText(text: "Second")
+        }
+    }
 
     var body: some View {
         ScrollView {
             blurryText
             welcomeTitles
             colorChangingButton
-            
+            capsules
 
-            VStack(spacing: 10) {
-                CapsuleText(text: "First")
-                CapsuleText(text: "Second")
-            }
+            
 
             Text("Hello, world!")
                 .padding()
