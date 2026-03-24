@@ -1,0 +1,60 @@
+//
+//  Challenge_2Tests.swift
+//  Challenge 2Tests
+//
+//  Created by Freak on 19.03.2026.
+//
+
+import SwiftUI
+import Testing
+
+@testable import Challenge_2
+
+@MainActor
+struct Challenge_2Tests {
+
+    @Test(
+        "Player scores a point when they correctly follow the win instruction"
+    )
+    func testPlayerWinsCorrectly() async throws {
+        let viewModel = GameViewModel()
+        viewModel.currentMove = .rock
+        viewModel.shouldWin = true
+
+        viewModel.processPlayerChoice(.paper)
+
+        #expect(viewModel.playerScore == 1)
+        #expect(viewModel.botScore == 0)
+        #expect(viewModel.showAlert == true)
+        #expect(viewModel.alertTitle == "You Win!")
+    }
+
+    @Test("resetGameLogic() keeps scores but hides alert")
+    func testResetGameLogic() async throws {
+        let viewModel = GameViewModel()
+        viewModel.playerScore = 7
+        viewModel.botScore = 5
+        viewModel.showAlert = true
+
+        viewModel.resetGameLogic()
+
+        #expect(viewModel.playerScore == 7)
+        #expect(viewModel.botScore == 5)
+        #expect(viewModel.showAlert == false)
+    }
+    
+    @Test("resetGame() resets scores and hides alerts")
+    func testResetGame() async throws {
+        let viewModel = GameViewModel()
+        viewModel.playerScore = 7
+        viewModel.botScore = 5
+        viewModel.showAlert = true
+
+        viewModel.resetGame()
+
+        #expect(viewModel.playerScore == 0)
+        #expect(viewModel.botScore == 0)
+        #expect(viewModel.showAlert == false)
+    }
+
+}
