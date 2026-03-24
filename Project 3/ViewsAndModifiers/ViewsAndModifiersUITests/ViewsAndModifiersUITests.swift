@@ -65,6 +65,16 @@ final class ViewsAndModifiersUITests: XCTestCase {
     }
     
     @MainActor
+    func testGlobeIconLoads() throws {
+        let app = XCUIApplication()
+        app.launch()
+        
+        let globeImage = app.images["globe"]
+        
+        XCTAssertTrue(globeImage.exists, "The globe icon should be displayed in the welcome section!")
+    }
+
+    @MainActor
     func testLaunchPerformance() throws {
         // This measures how long it takes to launch your application.
         measure(metrics: [XCTApplicationLaunchMetric()]) {
