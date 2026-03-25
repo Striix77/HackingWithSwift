@@ -26,26 +26,7 @@ struct ContentView: View {
                     WakeUpTimePickerView(wakeUp: $wakeUp)
                     DesiredSleepStepperView(sleepAmount: $sleepAmount)
                     DailyCoffeeIntakePickerView(coffeeAmount: $coffeeAmount)
-                    Section(
-                        header: HStack {
-                            Spacer()
-                            Text("Your ideal bedtime is...")
-                            Spacer()
-                        }
-                    ) {
-                        HStack {
-                            Spacer()
-                            Text(
-                                idealSleepAmount?.formatted(
-                                    date: .omitted,
-                                    time: .shortened
-                                ) ?? "NaN"
-                            )
-                            .font(.largeTitle)
-                            .multilineTextAlignment(.center)
-                            Spacer()
-                        }
-                    }
+                    IdealBedtimeView(idealSleepAmount: idealSleepAmount)
                     .listRowBackground(
                         Color(
                             red: 0.2,
@@ -189,6 +170,32 @@ struct DailyCoffeeIntakePickerView: View {
                     opacity: 0.15
                 )
             )
+        }
+    }
+}
+
+struct IdealBedtimeView:View {
+    let idealSleepAmount:Date?
+    var body: some View {
+        Section(
+            header: HStack {
+                Spacer()
+                Text("Your ideal bedtime is...")
+                Spacer()
+            }
+        ) {
+            HStack {
+                Spacer()
+                Text(
+                    idealSleepAmount?.formatted(
+                        date: .omitted,
+                        time: .shortened
+                    ) ?? "NaN"
+                )
+                .font(.largeTitle)
+                .multilineTextAlignment(.center)
+                Spacer()
+            }
         }
     }
 }
