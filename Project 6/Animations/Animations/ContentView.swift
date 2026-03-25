@@ -27,17 +27,7 @@ struct ContentView: View {
 
     var body: some View {
         ScrollView {
-            Button("Tap me") {
-                animationAmount += 0.5
-            }
-            .padding(50)
-            .background(.red)
-            .foregroundStyle(.white)
-            .clipShape(.circle)
-            .scaleEffect(animationAmount)
-            .blur(radius: (animationAmount - 1) * 3)
-            .animation(.default, value: animationAmount)
-
+            blurryButton
             Button("Spring me") {
                 springAnimationAmount += 0.5
             }
@@ -227,6 +217,21 @@ struct ContentView: View {
             }
         }
     }
+
+    var blurryButton: some View {
+        Button("Tap me") {
+            animationAmount += 0.5
+        }
+        .padding(50)
+        .background(.red)
+        .foregroundStyle(.white)
+        .clipShape(.circle)
+        .scaleEffect(animationAmount)
+        .blur(radius: (animationAmount - 1) * 3)
+        .animation(.default, value: animationAmount)
+
+    }
+
 }
 
 struct CornerRotateModifier: ViewModifier {
