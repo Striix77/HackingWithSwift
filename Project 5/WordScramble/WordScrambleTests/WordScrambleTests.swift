@@ -44,6 +44,15 @@ struct WordScrambleTests {
         #expect(viewModel.newWord == "")
     }
     
+    @Test("Adding a word that is too short triggers an error")
+    func testIsTooShort() {
+        let viewModel = GameViewModel()
+            viewModel.newWord = "it"
+            
+            viewModel.addNewWord()
+            
+            #expect(viewModel.showingError == true)
+            #expect(viewModel.errorTitle == GameStrings.isTooShortTitle)
     }
 
 }
