@@ -16,6 +16,7 @@ struct ContentView: View {
     @State private var stepperAnimationAmount = 1.0
     @State private var spinAnimationAmount = 1.0
     @State private var enabled = false
+    @State private var dragAmount = CGSize.zero
     var body: some View {
         ScrollView {
             Button("Tap me") {
@@ -117,7 +118,12 @@ struct ContentView: View {
             }
             .padding(50)
             .background(
-                RadialGradient(colors: [Color.blue, Color.red], center: .center, startRadius: 5, endRadius: 100)
+                RadialGradient(
+                    colors: [Color.blue, Color.red],
+                    center: .center,
+                    startRadius: 5,
+                    endRadius: 100
+                )
             )
             .foregroundStyle(.white)
             .clipShape(.circle)
@@ -125,7 +131,7 @@ struct ContentView: View {
                 .degrees(spinAnimationAmount),
                 axis: (x: 0, y: 1, z: 0)
             )
-            
+
             Button("Rectify Me") {
                 enabled.toggle()
             }
@@ -135,6 +141,25 @@ struct ContentView: View {
             .foregroundStyle(.white)
             .clipShape(.rect(cornerRadius: enabled ? 40 : 0))
             .animation(.spring(duration: 1, bounce: 0.6), value: enabled)
+
+            LinearGradient(
+                colors: [.yellow, .red],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .frame(width: 300, height: 200)
+            .clipShape(.rect(cornerRadius: 10))
+            .offset(dragAmount)
+            .gesture(
+                DragGesture()
+                    .onChanged { dragAmount = $0.translation }
+                    .onEnded { _ in
+                        withAnimation(.bouncy) {
+                            dragAmount = .zero
+                        }
+                    }
+            )
+            //.animation(.bouncy, value:dragAmount)
         }
     }
 }
