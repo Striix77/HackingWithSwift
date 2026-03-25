@@ -33,27 +33,7 @@ struct ContentView: View {
             repeatingButton
             pulsatingButton
             scalingStepper
-
-            Button("Spin Me") {
-                withAnimation(.spring(duration: 0.7, bounce: 0.5)) {
-                    spinAnimationAmount += 360
-                }
-            }
-            .padding(50)
-            .background(
-                RadialGradient(
-                    colors: [Color.blue, Color.red],
-                    center: .center,
-                    startRadius: 5,
-                    endRadius: 100
-                )
-            )
-            .foregroundStyle(.white)
-            .clipShape(.circle)
-            .rotation3DEffect(
-                .degrees(spinAnimationAmount),
-                axis: (x: 0, y: 1, z: 0)
-            )
+            spinningButton
 
             Button("Rectify Me") {
                 enabled.toggle()
@@ -247,6 +227,29 @@ struct ContentView: View {
             .clipShape(.circle)
             .scaleEffect(stepperAnimationAmount)
         }
+    }
+    
+    var spinningButton: some View{
+        Button("Spin Me") {
+            withAnimation(.spring(duration: 0.7, bounce: 0.5)) {
+                spinAnimationAmount += 360
+            }
+        }
+        .padding(50)
+        .background(
+            RadialGradient(
+                colors: [Color.blue, Color.red],
+                center: .center,
+                startRadius: 5,
+                endRadius: 100
+            )
+        )
+        .foregroundStyle(.white)
+        .clipShape(.circle)
+        .rotation3DEffect(
+            .degrees(spinAnimationAmount),
+            axis: (x: 0, y: 1, z: 0)
+        )
     }
 
 }
