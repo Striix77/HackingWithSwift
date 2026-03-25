@@ -24,7 +24,7 @@ struct ContentView: View {
             ZStack {
                 Form {
                     WakeUpTimePickerView(wakeUp: $wakeUp)
-                    
+                    DesiredSleepStepperView(sleepAmount: $sleepAmount)
                     Section(
                         header: Text("Daily coffee intake")
                             .font(.headline)
@@ -157,6 +157,31 @@ struct WakeUpTimePickerView: View {
                 )
             )
 
+        }
+    }
+}
+
+struct DesiredSleepStepperView:View {
+    @Binding var sleepAmount: Double
+    var body: some View {
+        Section(
+            header: Text("Desired amount of sleep")
+                .font(.headline)
+        ) {
+            Stepper(
+                "\(sleepAmount.formatted()) hours",
+                value: $sleepAmount,
+                in: 4...12,
+                step: 0.25
+            )
+            .listRowBackground(
+                Color(
+                    red: 0.2,
+                    green: 0.6,
+                    blue: 1,
+                    opacity: 0.15
+                )
+            )
         }
     }
 }
