@@ -32,28 +32,7 @@ struct ContentView: View {
             easingButton
             repeatingButton
             pulsatingButton
-
-            VStack {
-                Stepper(
-                    "Scale amount",
-                    value: $stepperAnimationAmount.animation(
-                        .easeInOut(duration: 0.5)
-                            .repeatCount(3, autoreverses: true)
-                    ),
-                    in: 1...10
-                )
-
-                Spacer()
-
-                Button("Tap Me") {
-                    stepperAnimationAmount += 0.5
-                }
-                .padding(50)
-                .background(.red)
-                .foregroundStyle(.white)
-                .clipShape(.circle)
-                .scaleEffect(stepperAnimationAmount)
-            }
+            scalingStepper
 
             Button("Spin Me") {
                 withAnimation(.spring(duration: 0.7, bounce: 0.5)) {
@@ -244,6 +223,30 @@ struct ContentView: View {
                     value: overlayAnimationAmount
                 )
         )
+    }
+    
+    var scalingStepper: some View{
+        VStack {
+            Stepper(
+                "Scale amount",
+                value: $stepperAnimationAmount.animation(
+                    .easeInOut(duration: 0.5)
+                        .repeatCount(3, autoreverses: true)
+                ),
+                in: 1...10
+            )
+
+            Spacer()
+
+            Button("Tap Me") {
+                stepperAnimationAmount += 0.5
+            }
+            .padding(50)
+            .background(.red)
+            .foregroundStyle(.white)
+            .clipShape(.circle)
+            .scaleEffect(stepperAnimationAmount)
+        }
     }
 
 }
