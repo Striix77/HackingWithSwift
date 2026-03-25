@@ -10,8 +10,15 @@ import Testing
 
 struct WordScrambleTests {
 
-    @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+    @Test("isPossible correctly identifies if letters exist in root word")
+    func testIsPossible() {
+        let viewModel = GameViewModel()
+        viewModel.startGame(with: "license")
+        
+        #expect(viewModel.isPossible("silence") == true)
+        #expect(viewModel.isPossible("silences") == false)
+    }
+    
     }
 
 }
