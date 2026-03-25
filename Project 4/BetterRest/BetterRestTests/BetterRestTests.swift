@@ -10,8 +10,16 @@ import Testing
 
 struct BetterRestTests {
 
-    @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+    @MainActor
+    @Test("Default wake up time is 7am")
+    func testDefaultWakeTime() async throws {
+        let defaultTime = ContentView.defaultWakeTime
+        
+        let components = Calendar.current.dateComponents([.hour, .minute], from: defaultTime)
+        
+        #expect(components.hour == 7)
+        #expect(components.minute == 0)
+    }
     }
 
 }
