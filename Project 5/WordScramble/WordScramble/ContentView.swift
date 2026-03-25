@@ -34,26 +34,7 @@ struct ContentView: View {
             ZStack {
                 backgroundColor
                 List {
-                    Section {
-                        HStack {
-                            Spacer()
-                            Text(viewModel.rootWord)
-                                .font(.largeTitle)
-                            Spacer()
-                        }
-
-                    }
-                    .listRowBackground(
-                        Color(red: 0.18, green: 0.294, blue: 0.38)
-                    )
-                    .foregroundStyle(
-                        Color(
-                            red: 0.863,
-                            green: 0.863,
-                            blue: 0.863,
-                            opacity: 1
-                        )
-                    )
+                    RootWordTitleView(rootWord: viewModel.rootWord)
 
                     Section {
                         TextField(
@@ -114,11 +95,36 @@ struct ContentView: View {
 
         }
     }
-
+    
     var backgroundColor: some View {
         Color(red: 0.18, green: 0.294, blue: 0.38)
             .ignoresSafeArea()
     }
+struct RootWordTitleView: View {
+    let rootWord: String
+    var body: some View {
+        Section {
+            HStack {
+                Spacer()
+                Text(rootWord)
+                    .font(.largeTitle)
+                Spacer()
+            }
+
+        }
+        .listRowBackground(
+            Color(red: 0.18, green: 0.294, blue: 0.38)
+        )
+        .foregroundStyle(
+            Color(
+                red: 0.863,
+                green: 0.863,
+                blue: 0.863,
+                opacity: 1
+            )
+        )
+    }
+}
 }
 
 #Preview {
