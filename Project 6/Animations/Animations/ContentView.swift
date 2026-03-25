@@ -15,6 +15,7 @@ struct ContentView: View {
     @State private var overlayAnimationAmount = 1.0
     @State private var stepperAnimationAmount = 1.0
     @State private var spinAnimationAmount = 1.0
+    @State private var enabled = false
     var body: some View {
         ScrollView {
             Button("Tap me") {
@@ -124,6 +125,16 @@ struct ContentView: View {
                 .degrees(spinAnimationAmount),
                 axis: (x: 0, y: 1, z: 0)
             )
+            
+            Button("Rectify Me") {
+                enabled.toggle()
+            }
+            .frame(width: 120, height: 120)
+            .background(enabled ? .blue : .red)
+            .animation(.default, value: enabled)
+            .foregroundStyle(.white)
+            .clipShape(.rect(cornerRadius: enabled ? 40 : 0))
+            .animation(.spring(duration: 1, bounce: 0.6), value: enabled)
         }
     }
 }
