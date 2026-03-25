@@ -34,17 +34,7 @@ struct ContentView: View {
             pulsatingButton
             scalingStepper
             spinningButton
-
-            Button("Rectify Me") {
-                enabled.toggle()
-            }
-            .frame(width: 120, height: 120)
-            .background(enabled ? .blue : .red)
-            .animation(.default, value: enabled)
-            .foregroundStyle(.white)
-            .clipShape(.rect(cornerRadius: enabled ? 40 : 0))
-            .animation(.spring(duration: 1, bounce: 0.6), value: enabled)
-
+            shapeChangingButton
             LinearGradient(
                 colors: [.yellow, .red],
                 startPoint: .topLeading,
@@ -250,6 +240,18 @@ struct ContentView: View {
             .degrees(spinAnimationAmount),
             axis: (x: 0, y: 1, z: 0)
         )
+    }
+    
+    var shapeChangingButton: some View{
+        Button("Rectify Me") {
+            enabled.toggle()
+        }
+        .frame(width: 120, height: 120)
+        .background(enabled ? .blue : .red)
+        .animation(.default, value: enabled)
+        .foregroundStyle(.white)
+        .clipShape(.rect(cornerRadius: enabled ? 40 : 0))
+        .animation(.spring(duration: 1, bounce: 0.6), value: enabled)
     }
 
 }
