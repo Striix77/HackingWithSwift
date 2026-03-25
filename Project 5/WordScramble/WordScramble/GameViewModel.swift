@@ -20,7 +20,14 @@ class GameViewModel {
 
     var showingError = false
 
-    func startGame() {
+    func startGame(with fixedWord: String? = nil) {
+        if let word = fixedWord {
+            rootWord = word
+            usedWords.removeAll()
+            score = 0
+            return
+        }
+        
         if let startWordsURL = Bundle.main.url(
             forResource: "start",
             withExtension: "txt"
@@ -30,7 +37,11 @@ class GameViewModel {
                 encoding: .utf8
             ) {
                 let allWords = startWords.components(separatedBy: "\n")
-                rootWord = allWords.randomElement() ?? "moist"
+                if ProcessInfo.processInfo.arguments.contains("-testMode") {
+                    rootWord = "scrumptious"
+                } else {
+                    rootWord = allWords.randomElement() ?? "moist"
+                }
                 withAnimation {
                     usedWords.removeAll()
                 }
@@ -55,10 +66,13 @@ class GameViewModel {
         }
 
         guard isOriginal(answer) else {
-            wordError(title: GameStrings.isOriginalTitle, message: GameStrings.isOriginalMessage)
+            wordError(
+                title: GameStrings.isOriginalTitle,
+                message: GameStrings.isOriginalMessage
+            )
             return
         }
-        
+
         guard isReal(answer) else {
             wordError(
                 title: GameStrings.isRealTitle,
@@ -66,12 +80,12 @@ class GameViewModel {
             )
             return
         }
-        
+
         guard isPossible(answer) else {
             wordError(
                 title: GameStrings.isPossibleTitle,
-                message:GameStrings.isPossibleMessage(rootWord)
-                    
+                message: GameStrings.isPossibleMessage(rootWord)
+
             )
             return
         }

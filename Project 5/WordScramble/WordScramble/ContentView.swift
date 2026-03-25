@@ -56,7 +56,9 @@ struct ContentView: View {
 
             }
             .onSubmit(viewModel.addNewWord)
-            .onAppear(perform: viewModel.startGame)
+            .onAppear{
+                viewModel.startGame()
+            }
             .alert(viewModel.errorTitle, isPresented: $viewModel.showingError) {
 
             } message: {
