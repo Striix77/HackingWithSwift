@@ -32,8 +32,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color(red: 0.18, green: 0.294, blue: 0.38)
-                    .ignoresSafeArea()
+                backgroundColor
                 List {
                     Section {
                         HStack {
@@ -116,6 +115,10 @@ struct ContentView: View {
         }
     }
 
+    var backgroundColor: some View {
+        Color(red: 0.18, green: 0.294, blue: 0.38)
+            .ignoresSafeArea()
+    }
 }
 
 #Preview {
