@@ -20,6 +20,8 @@ struct ContentView: View {
 
     @State private var arrayEnabled = false
     @State private var arrayDragAmount = CGSize.zero
+
+    @State private var isShowingRed = false
     let letters = Array("Hello SwiftUI")
 
     var body: some View {
@@ -165,25 +167,44 @@ struct ContentView: View {
                     }
             )
             //.animation(.bouncy, value:dragAmount)
-            
+
             HStack(spacing: 0) {
-                        ForEach(0..<letters.count, id: \.self) { num in
-                            Text(String(letters[num]))
-                                .padding(5)
-                                .font(.title)
-                                .background(arrayEnabled ? .blue : .red)
-                                .offset(arrayDragAmount)
-                                .animation(.linear.delay(Double(num) / 20), value: arrayDragAmount)
-                        }
+                ForEach(0..<letters.count, id: \.self) { num in
+                    Text(String(letters[num]))
+                        .padding(5)
+                        .font(.title)
+                        .background(arrayEnabled ? .blue : .red)
+                        .offset(arrayDragAmount)
+                        .animation(
+                            .linear.delay(Double(num) / 20),
+                            value: arrayDragAmount
+                        )
+                }
+            }
+            .gesture(
+                DragGesture()
+                    .onChanged { arrayDragAmount = $0.translation }
+                    .onEnded { _ in
+                        arrayDragAmount = .zero
+                        arrayEnabled.toggle()
                     }
-                    .gesture(
-                        DragGesture()
-                            .onChanged { arrayDragAmount = $0.translation }
-                            .onEnded { _ in
-                                arrayDragAmount = .zero
-                                arrayEnabled.toggle()
-                            }
-                    )
+            )
+
+            VStack {
+                Button("Tap Me") {
+                    withAnimation{
+                        isShowingRed.toggle()
+                    }
+                }
+
+                if isShowingRed {
+                    Rectangle()
+                        .fill(.red)
+                        .frame(width: 200, height: 200)
+                        .transition(.asymmetric(insertion: .opacity, removal: .scale))
+                }
+                
+            }
         }
     }
 }
