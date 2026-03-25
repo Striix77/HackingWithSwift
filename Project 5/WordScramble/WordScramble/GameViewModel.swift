@@ -38,7 +38,7 @@ class GameViewModel {
                 return
             }
         }
-        fatalError("Could not load start.txt from bundle!")
+        fatalError(GameStrings.fatalError)
     }
 
     func addNewWord() {
@@ -48,30 +48,30 @@ class GameViewModel {
 
         guard !isTooShort(answer) else {
             wordError(
-                title: "Word is too short!",
-                message: "Length does matter!"
+                title: GameStrings.isTooShortTitle,
+                message: GameStrings.isTooShortMessage
             )
             return
         }
 
         guard isOriginal(answer) else {
-            wordError(title: "Word used already!", message: "Try another one!")
+            wordError(title: GameStrings.isOriginalTitle, message: GameStrings.isOriginalMessage)
             return
         }
-
-        guard isPossible(answer) else {
+        
+        guard isReal(answer) else {
             wordError(
-                title: "Word not possible!",
-                message:
-                    "You can't spell that word from '\(rootWord)''s letters!"
+                title: GameStrings.isRealTitle,
+                message: GameStrings.isRealMessage
             )
             return
         }
-
-        guard isReal(answer) else {
+        
+        guard isPossible(answer) else {
             wordError(
-                title: "Word not recognized!",
-                message: "You can't just make 'em up!"
+                title: GameStrings.isPossibleTitle,
+                message:GameStrings.isPossibleMessage(rootWord)
+                    
             )
             return
         }
@@ -110,7 +110,7 @@ class GameViewModel {
             wrap: false,
             language: "en"
         )
-
+        print("MISSPELLED: \(misspelledRange.location)")
         return misspelledRange.location == NSNotFound
     }
 
