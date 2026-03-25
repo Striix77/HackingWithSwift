@@ -25,25 +25,7 @@ struct ContentView: View {
                 Form {
                     WakeUpTimePickerView(wakeUp: $wakeUp)
                     DesiredSleepStepperView(sleepAmount: $sleepAmount)
-                    Section(
-                        header: Text("Daily coffee intake")
-                            .font(.headline)
-                    ) {
-                        Picker("Number of cups", selection: $coffeeAmount) {
-                            ForEach(0..<21) { amount in
-                                Text("^[\(amount) cup](inflect:true)")
-                            }
-                        }
-                        .environment(\.colorScheme, .dark)
-                        .listRowBackground(
-                            Color(
-                                red: 0.2,
-                                green: 0.6,
-                                blue: 1,
-                                opacity: 0.15
-                            )
-                        )
-                    }
+                    DailyCoffeeIntakePickerView(coffeeAmount: $coffeeAmount)
                     Section(
                         header: HStack {
                             Spacer()
@@ -174,6 +156,31 @@ struct DesiredSleepStepperView:View {
                 in: 4...12,
                 step: 0.25
             )
+            .listRowBackground(
+                Color(
+                    red: 0.2,
+                    green: 0.6,
+                    blue: 1,
+                    opacity: 0.15
+                )
+            )
+        }
+    }
+}
+
+struct DailyCoffeeIntakePickerView: View {
+    @Binding var coffeeAmount: Int
+    var body: some View {
+        Section(
+            header: Text("Daily coffee intake")
+                .font(.headline)
+        ) {
+            Picker("Number of cups", selection: $coffeeAmount) {
+                ForEach(0..<21) { amount in
+                    Text("^[\(amount) cup](inflect:true)")
+                }
+            }
+            .environment(\.colorScheme, .dark)
             .listRowBackground(
                 Color(
                     red: 0.2,
