@@ -17,6 +17,11 @@ struct ContentView: View {
     @State private var spinAnimationAmount = 1.0
     @State private var enabled = false
     @State private var dragAmount = CGSize.zero
+
+    @State private var arrayEnabled = false
+    @State private var arrayDragAmount = CGSize.zero
+    let letters = Array("Hello SwiftUI")
+
     var body: some View {
         ScrollView {
             Button("Tap me") {
@@ -160,6 +165,25 @@ struct ContentView: View {
                     }
             )
             //.animation(.bouncy, value:dragAmount)
+            
+            HStack(spacing: 0) {
+                        ForEach(0..<letters.count, id: \.self) { num in
+                            Text(String(letters[num]))
+                                .padding(5)
+                                .font(.title)
+                                .background(arrayEnabled ? .blue : .red)
+                                .offset(arrayDragAmount)
+                                .animation(.linear.delay(Double(num) / 20), value: arrayDragAmount)
+                        }
+                    }
+                    .gesture(
+                        DragGesture()
+                            .onChanged { arrayDragAmount = $0.translation }
+                            .onEnded { _ in
+                                arrayDragAmount = .zero
+                                arrayEnabled.toggle()
+                            }
+                    )
         }
     }
 }
