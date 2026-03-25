@@ -36,22 +36,7 @@ struct ContentView: View {
                 List {
                     RootWordTitleView(rootWord: viewModel.rootWord)
                     ScrambledWordInputView(newWord: $viewModel.newWord)
-
-                    Section {
-                        ForEach(viewModel.usedWords, id: \.self) { word in
-                            HStack {
-                                Spacer()
-                                Image(systemName: "\(word.count).circle")
-                                    .foregroundStyle(Color.white)
-                                Text(word)
-                                    .foregroundStyle(Color.white)
-                                Spacer()
-                            }
-                            .listRowBackground(
-                                Color(red: 0.145, green: 0.239, blue: 0.31)
-                            )
-                        }
-                    }
+                    ScrambledWordListView(usedWords: viewModel.usedWords)
                 }
                 .navigationTitle("WordScramble")
                 .navigationBarTitleDisplayMode(.inline)
@@ -132,6 +117,27 @@ struct ScrambledWordInputView: View {
         .listRowBackground(
             Color(red: 0.145, green: 0.239, blue: 0.31)
         )
+    }
+}
+
+struct ScrambledWordListView: View {
+    let usedWords: [String]
+    var body: some View {
+        Section {
+            ForEach(usedWords, id: \.self) { word in
+                HStack {
+                    Spacer()
+                    Image(systemName: "\(word.count).circle")
+                        .foregroundStyle(Color.white)
+                    Text(word)
+                        .foregroundStyle(Color.white)
+                    Spacer()
+                }
+                .listRowBackground(
+                    Color(red: 0.145, green: 0.239, blue: 0.31)
+                )
+            }
+        }
     }
 }
 
