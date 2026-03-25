@@ -35,22 +35,7 @@ struct ContentView: View {
                 backgroundColor
                 List {
                     RootWordTitleView(rootWord: viewModel.rootWord)
-
-                    Section {
-                        TextField(
-                            "",
-                            text: $viewModel.newWord,
-                            prompt: Text("Enter your word").foregroundStyle(
-                                Color.gray
-                            )
-                        )
-                        .textInputAutocapitalization(.never)
-                        .foregroundStyle(Color.white)
-
-                    }
-                    .listRowBackground(
-                        Color(red: 0.145, green: 0.239, blue: 0.31)
-                    )
+                    ScrambledWordInputView(newWord: $viewModel.newWord)
 
                     Section {
                         ForEach(viewModel.usedWords, id: \.self) { word in
@@ -100,6 +85,9 @@ struct ContentView: View {
         Color(red: 0.18, green: 0.294, blue: 0.38)
             .ignoresSafeArea()
     }
+
+}
+
 struct RootWordTitleView: View {
     let rootWord: String
     var body: some View {
@@ -125,6 +113,26 @@ struct RootWordTitleView: View {
         )
     }
 }
+
+struct ScrambledWordInputView: View {
+    @Binding var newWord: String
+    var body: some View {
+        Section {
+            TextField(
+                "",
+                text: $newWord,
+                prompt: Text("Enter your word").foregroundStyle(
+                    Color.gray
+                )
+            )
+            .textInputAutocapitalization(.never)
+            .foregroundStyle(Color.white)
+
+        }
+        .listRowBackground(
+            Color(red: 0.145, green: 0.239, blue: 0.31)
+        )
+    }
 }
 
 #Preview {
