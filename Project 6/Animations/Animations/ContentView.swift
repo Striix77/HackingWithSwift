@@ -12,6 +12,7 @@ struct ContentView: View {
     @State private var springAnimationAmount = 1.0
     @State private var easeInOutAnimationAmount = 1.0
     @State private var repeatAnimationAmount = 1.0
+    @State private var overlayAnimationAmount = 1.0
     var body: some View {
         Button("Tap me") {
             animationAmount += 0.5
@@ -62,6 +63,25 @@ struct ContentView: View {
             .easeInOut(duration: 1)
             .repeatForever(autoreverses: true),
             value: repeatAnimationAmount
+        )
+        
+        Button("Pulse me") {
+            overlayAnimationAmount = 2
+        }
+        .padding(50)
+        .background(.cyan)
+        .foregroundStyle(.white)
+        .clipShape(.circle)
+        .overlay(
+            Circle()
+                .stroke(.cyan)
+                .scaleEffect(overlayAnimationAmount)
+                .opacity(2 - overlayAnimationAmount)
+                .animation(
+                    .easeOut(duration: 1)
+                    .repeatForever(autoreverses: false),
+                    value: overlayAnimationAmount
+                )
         )
 
     }
