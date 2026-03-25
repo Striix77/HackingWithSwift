@@ -13,6 +13,7 @@ struct ContentView: View {
     @State private var easeInOutAnimationAmount = 1.0
     @State private var repeatAnimationAmount = 1.0
     @State private var overlayAnimationAmount = 1.0
+    @State private var stepperAnimationAmount = 1.0
     var body: some View {
         Button("Tap me") {
             animationAmount += 0.5
@@ -61,10 +62,10 @@ struct ContentView: View {
         .scaleEffect(repeatAnimationAmount)
         .animation(
             .easeInOut(duration: 1)
-            .repeatForever(autoreverses: true),
+                .repeatForever(autoreverses: true),
             value: repeatAnimationAmount
         )
-        
+
         Button("Pulse me") {
             overlayAnimationAmount = 2
         }
@@ -79,10 +80,28 @@ struct ContentView: View {
                 .opacity(2 - overlayAnimationAmount)
                 .animation(
                     .easeOut(duration: 1)
-                    .repeatForever(autoreverses: false),
+                        .repeatForever(autoreverses: false),
                     value: overlayAnimationAmount
                 )
         )
+
+        VStack {
+            Stepper("Scale amount", value: $stepperAnimationAmount.animation(
+                .easeInOut(duration: 0.5)
+                    .repeatCount(3, autoreverses: true)
+            ), in: 1...10)
+
+            Spacer()
+
+            Button("Tap Me") {
+                stepperAnimationAmount += 0.5
+            }
+            .padding(40)
+            .background(.red)
+            .foregroundStyle(.white)
+            .clipShape(.circle)
+            .scaleEffect(stepperAnimationAmount)
+        }
 
     }
 }
