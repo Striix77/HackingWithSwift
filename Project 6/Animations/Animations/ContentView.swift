@@ -14,8 +14,9 @@ struct ContentView: View {
     @State private var repeatAnimationAmount = 1.0
     @State private var overlayAnimationAmount = 1.0
     @State private var stepperAnimationAmount = 1.0
+    @State private var spinAnimationAmount = 1.0
     var body: some View {
-        ScrollView{
+        ScrollView {
             Button("Tap me") {
                 animationAmount += 0.5
             }
@@ -26,7 +27,7 @@ struct ContentView: View {
             .scaleEffect(animationAmount)
             .blur(radius: (animationAmount - 1) * 3)
             .animation(.default, value: animationAmount)
-            
+
             Button("Spring me") {
                 springAnimationAmount += 0.5
             }
@@ -39,7 +40,7 @@ struct ContentView: View {
                 .spring(duration: 0.5, bounce: 0.3),
                 value: springAnimationAmount
             )
-            
+
             Button("Ease me") {
                 easeInOutAnimationAmount += 0.5
             }
@@ -50,7 +51,7 @@ struct ContentView: View {
             .scaleEffect(easeInOutAnimationAmount)
             .animation(
                 .easeInOut(duration: 1)
-                .delay(1),
+                    .delay(1),
                 value: easeInOutAnimationAmount
             )
             Button("Repeat me") {
@@ -63,10 +64,10 @@ struct ContentView: View {
             .scaleEffect(repeatAnimationAmount)
             .animation(
                 .easeInOut(duration: 1)
-                .repeatForever(autoreverses: true),
+                    .repeatForever(autoreverses: true),
                 value: repeatAnimationAmount
             )
-            
+
             Button("Pulse me") {
                 overlayAnimationAmount = 2
             }
@@ -81,30 +82,48 @@ struct ContentView: View {
                     .opacity(2 - overlayAnimationAmount)
                     .animation(
                         .easeOut(duration: 1)
-                        .repeatForever(autoreverses: false),
+                            .repeatForever(autoreverses: false),
                         value: overlayAnimationAmount
                     )
             )
-            
+
             VStack {
-                Stepper("Scale amount", value: $stepperAnimationAmount.animation(
-                    .easeInOut(duration: 0.5)
-                    .repeatCount(3, autoreverses: true)
-                ), in: 1...10)
-                
+                Stepper(
+                    "Scale amount",
+                    value: $stepperAnimationAmount.animation(
+                        .easeInOut(duration: 0.5)
+                            .repeatCount(3, autoreverses: true)
+                    ),
+                    in: 1...10
+                )
+
                 Spacer()
-                
+
                 Button("Tap Me") {
                     stepperAnimationAmount += 0.5
                 }
-                .padding(40)
+                .padding(50)
                 .background(.red)
                 .foregroundStyle(.white)
                 .clipShape(.circle)
                 .scaleEffect(stepperAnimationAmount)
             }
-            
-            
+
+            Button("Spin Me") {
+                withAnimation(.spring(duration: 0.7, bounce: 0.5)) {
+                    spinAnimationAmount += 360
+                }
+            }
+            .padding(50)
+            .background(
+                RadialGradient(colors: [Color.blue, Color.red], center: .center, startRadius: 5, endRadius: 100)
+            )
+            .foregroundStyle(.white)
+            .clipShape(.circle)
+            .rotation3DEffect(
+                .degrees(spinAnimationAmount),
+                axis: (x: 0, y: 1, z: 0)
+            )
         }
     }
 }
