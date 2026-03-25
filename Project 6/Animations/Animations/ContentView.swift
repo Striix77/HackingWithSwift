@@ -29,20 +29,7 @@ struct ContentView: View {
         ScrollView {
             blurryButton
             springyButton
-
-            Button("Ease me") {
-                easeInOutAnimationAmount += 0.5
-            }
-            .padding(50)
-            .background(.blue)
-            .foregroundStyle(.white)
-            .clipShape(.circle)
-            .scaleEffect(easeInOutAnimationAmount)
-            .animation(
-                .easeInOut(duration: 1)
-                    .delay(1),
-                value: easeInOutAnimationAmount
-            )
+            easingButton
             Button("Repeat me") {
                 repeatAnimationAmount = 1.5
             }
@@ -233,6 +220,22 @@ struct ContentView: View {
         .animation(
             .spring(duration: 0.5, bounce: 0.3),
             value: springAnimationAmount
+        )
+    }
+    
+    var easingButton: some View{
+        Button("Ease me") {
+            easeInOutAnimationAmount += 0.5
+        }
+        .padding(50)
+        .background(.blue)
+        .foregroundStyle(.white)
+        .clipShape(.circle)
+        .scaleEffect(easeInOutAnimationAmount)
+        .animation(
+            .easeInOut(duration: 1)
+                .delay(1),
+            value: easeInOutAnimationAmount
         )
     }
 
