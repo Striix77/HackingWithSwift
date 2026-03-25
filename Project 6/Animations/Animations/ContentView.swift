@@ -38,24 +38,7 @@ struct ContentView: View {
             draggableGradient
             draggableText
             toggleableRectangle
-
-            ZStack {
-                Rectangle()
-                    .fill(.blue)
-                    .frame(width: 200, height: 200)
-
-                if isShowingGreen {
-                    Rectangle()
-                        .fill(.green)
-                        .frame(width: 200, height: 200)
-                        .transition(.pivot)
-                }
-            }
-            .onTapGesture {
-                withAnimation {
-                    isShowingGreen.toggle()
-                }
-            }
+            clippingRectangle
         }
     }
 
@@ -260,6 +243,26 @@ struct ContentView: View {
                     .transition(
                         .asymmetric(insertion: .opacity, removal: .scale)
                     )
+            }
+        }
+    }
+    
+    var clippingRectangle: some View{
+        ZStack {
+            Rectangle()
+                .fill(.blue)
+                .frame(width: 200, height: 200)
+
+            if isShowingGreen {
+                Rectangle()
+                    .fill(.green)
+                    .frame(width: 200, height: 200)
+                    .transition(.pivot)
+            }
+        }
+        .onTapGesture {
+            withAnimation {
+                isShowingGreen.toggle()
             }
         }
     }
