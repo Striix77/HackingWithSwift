@@ -31,25 +31,7 @@ struct ContentView: View {
             springyButton
             easingButton
             repeatingButton
-
-            Button("Pulse me") {
-                overlayAnimationAmount = 2
-            }
-            .padding(50)
-            .background(.cyan)
-            .foregroundStyle(.white)
-            .clipShape(.circle)
-            .overlay(
-                Circle()
-                    .stroke(.cyan)
-                    .scaleEffect(overlayAnimationAmount)
-                    .opacity(2 - overlayAnimationAmount)
-                    .animation(
-                        .easeOut(duration: 1)
-                            .repeatForever(autoreverses: false),
-                        value: overlayAnimationAmount
-                    )
-            )
+            pulsatingButton
 
             VStack {
                 Stepper(
@@ -240,6 +222,27 @@ struct ContentView: View {
             .easeInOut(duration: 1)
                 .repeatForever(autoreverses: true),
             value: repeatAnimationAmount
+        )
+    }
+    
+    var pulsatingButton: some View {
+        Button("Pulse me") {
+            overlayAnimationAmount = 2
+        }
+        .padding(50)
+        .background(.cyan)
+        .foregroundStyle(.white)
+        .clipShape(.circle)
+        .overlay(
+            Circle()
+                .stroke(.cyan)
+                .scaleEffect(overlayAnimationAmount)
+                .opacity(2 - overlayAnimationAmount)
+                .animation(
+                    .easeOut(duration: 1)
+                        .repeatForever(autoreverses: false),
+                    value: overlayAnimationAmount
+                )
         )
     }
 
