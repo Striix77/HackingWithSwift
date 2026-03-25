@@ -23,47 +23,8 @@ struct ContentView: View {
         NavigationStack {
             ZStack {
                 Form {
-                    Section(
-                        header: Text("When do you want to wake up?")
-                            .font(.headline)
-                    ) {
-
-                        DatePicker(
-                            "Please enter a time",
-                            selection: $wakeUp,
-                            displayedComponents: .hourAndMinute
-                        )
-                        .labelsHidden()
-                        .environment(\.colorScheme, .dark)
-                        .listRowBackground(
-                            Color(
-                                red: 0.2,
-                                green: 0.6,
-                                blue: 1,
-                                opacity: 0.15
-                            )
-                        )
-
-                    }
-                    Section(
-                        header: Text("Desired amount of sleep")
-                            .font(.headline)
-                    ) {
-                        Stepper(
-                            "\(sleepAmount.formatted()) hours",
-                            value: $sleepAmount,
-                            in: 4...12,
-                            step: 0.25
-                        )
-                        .listRowBackground(
-                            Color(
-                                red: 0.2,
-                                green: 0.6,
-                                blue: 1,
-                                opacity: 0.15
-                            )
-                        )
-                    }
+                    WakeUpTimePickerView(wakeUp: $wakeUp)
+                    
                     Section(
                         header: Text("Daily coffee intake")
                             .font(.headline)
@@ -170,6 +131,34 @@ struct ContentView: View {
         return Calendar.current.date(from: components) ?? .now
     }
 
+}
+
+struct WakeUpTimePickerView: View {
+    @Binding var wakeUp:Date
+    var body: some View {
+        Section(
+            header: Text("When do you want to wake up?")
+                .font(.headline)
+        ) {
+
+            DatePicker(
+                "Please enter a time",
+                selection: $wakeUp,
+                displayedComponents: .hourAndMinute
+            )
+            .labelsHidden()
+            .environment(\.colorScheme, .dark)
+            .listRowBackground(
+                Color(
+                    red: 0.2,
+                    green: 0.6,
+                    blue: 1,
+                    opacity: 0.15
+                )
+            )
+
+        }
+    }
 }
 
 #Preview {
