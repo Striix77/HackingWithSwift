@@ -30,19 +30,7 @@ struct ContentView: View {
             blurryButton
             springyButton
             easingButton
-            Button("Repeat me") {
-                repeatAnimationAmount = 1.5
-            }
-            .padding(50)
-            .background(.green)
-            .foregroundStyle(.white)
-            .clipShape(.circle)
-            .scaleEffect(repeatAnimationAmount)
-            .animation(
-                .easeInOut(duration: 1)
-                    .repeatForever(autoreverses: true),
-                value: repeatAnimationAmount
-            )
+            repeatingButton
 
             Button("Pulse me") {
                 overlayAnimationAmount = 2
@@ -236,6 +224,22 @@ struct ContentView: View {
             .easeInOut(duration: 1)
                 .delay(1),
             value: easeInOutAnimationAmount
+        )
+    }
+    
+    var repeatingButton: some View{
+        Button("Repeat me") {
+            repeatAnimationAmount = 1.5
+        }
+        .padding(50)
+        .background(.green)
+        .foregroundStyle(.white)
+        .clipShape(.circle)
+        .scaleEffect(repeatAnimationAmount)
+        .animation(
+            .easeInOut(duration: 1)
+                .repeatForever(autoreverses: true),
+            value: repeatAnimationAmount
         )
     }
 
