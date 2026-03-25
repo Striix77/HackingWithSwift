@@ -126,6 +126,7 @@ struct DesiredSleepStepperView: View {
                     opacity: 0.15
                 )
             )
+            .accessibilityIdentifier("SleepAmountStepper")
         }
     }
 }

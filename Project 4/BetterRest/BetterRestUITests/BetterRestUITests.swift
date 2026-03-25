@@ -23,12 +23,19 @@ final class BetterRestUITests: XCTestCase {
     }
 
     @MainActor
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    func testSleepStepperUpdatesText() throws {
         let app = XCUIApplication()
         app.launch()
-
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
+        let sleepStepper = app.steppers["SleepAmountStepper"]
+        XCTAssertTrue(sleepStepper.exists, "The sleep stepper should be on screen.")
+        
+        let incrementCoordinate = sleepStepper.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5))
+        incrementCoordinate.tap()
+        incrementCoordinate.tap()
+        
+        let updatedText = sleepStepper.label
+        XCTAssertTrue(updatedText == "8,5 hours", "The label should update to 8,5 hours after two increments.")
     }
 
     @MainActor
