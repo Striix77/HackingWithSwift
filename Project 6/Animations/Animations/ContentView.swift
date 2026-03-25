@@ -37,23 +37,7 @@ struct ContentView: View {
             shapeChangingButton
             draggableGradient
             draggableText
-
-            VStack {
-                Button("Tap Me") {
-                    withAnimation {
-                        isShowingRed.toggle()
-                    }
-                }
-
-                if isShowingRed {
-                    Rectangle()
-                        .fill(.red)
-                        .frame(width: 200, height: 200)
-                        .transition(
-                            .asymmetric(insertion: .opacity, removal: .scale)
-                        )
-                }
-            }
+            toggleableRectangle
 
             ZStack {
                 Rectangle()
@@ -259,6 +243,25 @@ struct ContentView: View {
                     arrayEnabled.toggle()
                 }
         )
+    }
+    
+    var toggleableRectangle: some View{
+        VStack {
+            Button("Tap Me") {
+                withAnimation {
+                    isShowingRed.toggle()
+                }
+            }
+
+            if isShowingRed {
+                Rectangle()
+                    .fill(.red)
+                    .frame(width: 200, height: 200)
+                    .transition(
+                        .asymmetric(insertion: .opacity, removal: .scale)
+                    )
+            }
+        }
     }
 
 }
