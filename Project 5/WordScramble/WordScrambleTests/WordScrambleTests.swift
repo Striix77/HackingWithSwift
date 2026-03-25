@@ -31,6 +31,19 @@ struct WordScrambleTests {
         #expect(viewModel.isOriginal("silence") == false)
     }
     
+    @Test("Adding a valid word increases the score and clears input")
+    func testAddingValidWord() {
+        let viewModel = GameViewModel()
+        viewModel.startGame(with: "license")
+        
+        viewModel.newWord = "silence"
+        viewModel.addNewWord()
+        
+        #expect(viewModel.score == 7)
+        #expect(viewModel.usedWords.count == 1)
+        #expect(viewModel.newWord == "")
+    }
+    
     }
 
 }
