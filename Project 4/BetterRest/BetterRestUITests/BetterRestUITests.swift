@@ -26,16 +26,38 @@ final class BetterRestUITests: XCTestCase {
     func testSleepStepperUpdatesText() throws {
         let app = XCUIApplication()
         app.launch()
-        
+
         let sleepStepper = app.steppers["SleepAmountStepper"]
-        XCTAssertTrue(sleepStepper.exists, "The sleep stepper should be on screen.")
-        
-        let incrementCoordinate = sleepStepper.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5))
+        XCTAssertTrue(
+            sleepStepper.exists,
+            "The sleep stepper should be on screen."
+        )
+
+        let incrementCoordinate = sleepStepper.coordinate(
+            withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)
+        )
         incrementCoordinate.tap()
         incrementCoordinate.tap()
-        
+
         let updatedText = sleepStepper.label
-        XCTAssertTrue(updatedText == "8,5 hours", "The label should update to 8,5 hours after two increments.")
+        XCTAssertTrue(
+            updatedText == "8,5 hours",
+            "The label should update to 8,5 hours after two increments."
+        )
+    }
+
+    @MainActor
+    func testBedtimeCalulatesAndDisplays() throws {
+        let app = XCUIApplication()
+        app.launch()
+
+        let bedtimeText = app.staticTexts["IdealBedtimeText"]
+
+        XCTAssertNotEqual(
+            bedtimeText.label,
+            "NaN",
+            "The AI model should return a real time."
+        )
     }
 
     @MainActor

@@ -176,6 +176,7 @@ struct IdealBedtimeView: View {
                 )
                 .font(.largeTitle)
                 .multilineTextAlignment(.center)
+                .accessibilityIdentifier("IdealBedtimeText")
                 Spacer()
             }
         }
