@@ -28,18 +28,7 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             blurryButton
-            Button("Spring me") {
-                springAnimationAmount += 0.5
-            }
-            .padding(50)
-            .background(.yellow)
-            .foregroundStyle(.black)
-            .clipShape(.circle)
-            .scaleEffect(springAnimationAmount)
-            .animation(
-                .spring(duration: 0.5, bounce: 0.3),
-                value: springAnimationAmount
-            )
+            springyButton
 
             Button("Ease me") {
                 easeInOutAnimationAmount += 0.5
@@ -230,6 +219,21 @@ struct ContentView: View {
         .blur(radius: (animationAmount - 1) * 3)
         .animation(.default, value: animationAmount)
 
+    }
+    
+    var springyButton: some View{
+        Button("Spring me") {
+            springAnimationAmount += 0.5
+        }
+        .padding(50)
+        .background(.yellow)
+        .foregroundStyle(.black)
+        .clipShape(.circle)
+        .scaleEffect(springAnimationAmount)
+        .animation(
+            .spring(duration: 0.5, bounce: 0.3),
+            value: springAnimationAmount
+        )
     }
 
 }
