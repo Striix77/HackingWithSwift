@@ -36,28 +36,7 @@ struct ContentView: View {
             spinningButton
             shapeChangingButton
             draggableGradient
-
-            HStack(spacing: 0) {
-                ForEach(0..<letters.count, id: \.self) { num in
-                    Text(String(letters[num]))
-                        .padding(5)
-                        .font(.title)
-                        .background(arrayEnabled ? .blue : .red)
-                        .offset(arrayDragAmount)
-                        .animation(
-                            .linear.delay(Double(num) / 20),
-                            value: arrayDragAmount
-                        )
-                }
-            }
-            .gesture(
-                DragGesture()
-                    .onChanged { arrayDragAmount = $0.translation }
-                    .onEnded { _ in
-                        arrayDragAmount = .zero
-                        arrayEnabled.toggle()
-                    }
-            )
+            draggableText
 
             VStack {
                 Button("Tap Me") {
@@ -256,6 +235,30 @@ struct ContentView: View {
                 }
         )
         //.animation(.bouncy, value:dragAmount)
+    }
+    
+    var draggableText: some View{
+        HStack(spacing: 0) {
+            ForEach(0..<letters.count, id: \.self) { num in
+                Text(String(letters[num]))
+                    .padding(5)
+                    .font(.title)
+                    .background(arrayEnabled ? .blue : .red)
+                    .offset(arrayDragAmount)
+                    .animation(
+                        .linear.delay(Double(num) / 20),
+                        value: arrayDragAmount
+                    )
+            }
+        }
+        .gesture(
+            DragGesture()
+                .onChanged { arrayDragAmount = $0.translation }
+                .onEnded { _ in
+                    arrayDragAmount = .zero
+                    arrayEnabled.toggle()
+                }
+        )
     }
 
 }
