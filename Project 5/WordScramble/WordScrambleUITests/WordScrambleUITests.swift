@@ -23,12 +23,23 @@ final class WordScrambleUITests: XCTestCase {
     }
 
     @MainActor
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    func testAddingValidWordUpdatesList() throws {
         let app = XCUIApplication()
+        app.launchArguments = ["-testMode"]
         app.launch()
 
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let textField = app.textFields["Enter your word"]
+        XCTAssertTrue(textField.exists, "The word input field should be visible.")
+        
+        let wordToAdd = "scout"
+        textField.tap()
+        textField.typeText(wordToAdd)
+        
+        app.keyboards.buttons["Return"].tap()
+        
+        let newWordRow = app.staticTexts[wordToAdd]
+        
+        XCTAssertTrue(newWordRow.waitForExistence(timeout: 2), "The word \(wordToAdd) should appear in the list.")
     }
 
     @MainActor
