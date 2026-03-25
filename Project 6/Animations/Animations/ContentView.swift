@@ -35,24 +35,7 @@ struct ContentView: View {
             scalingStepper
             spinningButton
             shapeChangingButton
-            LinearGradient(
-                colors: [.yellow, .red],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .frame(width: 300, height: 200)
-            .clipShape(.rect(cornerRadius: 10))
-            .offset(dragAmount)
-            .gesture(
-                DragGesture()
-                    .onChanged { dragAmount = $0.translation }
-                    .onEnded { _ in
-                        withAnimation(.bouncy) {
-                            dragAmount = .zero
-                        }
-                    }
-            )
-            //.animation(.bouncy, value:dragAmount)
+            draggableGradient
 
             HStack(spacing: 0) {
                 ForEach(0..<letters.count, id: \.self) { num in
@@ -252,6 +235,27 @@ struct ContentView: View {
         .foregroundStyle(.white)
         .clipShape(.rect(cornerRadius: enabled ? 40 : 0))
         .animation(.spring(duration: 1, bounce: 0.6), value: enabled)
+    }
+    
+    var draggableGradient: some View{
+        LinearGradient(
+            colors: [.yellow, .red],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+        .frame(width: 300, height: 200)
+        .clipShape(.rect(cornerRadius: 10))
+        .offset(dragAmount)
+        .gesture(
+            DragGesture()
+                .onChanged { dragAmount = $0.translation }
+                .onEnded { _ in
+                    withAnimation(.bouncy) {
+                        dragAmount = .zero
+                    }
+                }
+        )
+        //.animation(.bouncy, value:dragAmount)
     }
 
 }
