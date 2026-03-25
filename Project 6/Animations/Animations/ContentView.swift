@@ -13,7 +13,7 @@ struct ContentView: View {
     @State private var easeInOutAnimationAmount = 1.0
     var body: some View {
         Button("Tap me") {
-            animationAmount += 1
+            animationAmount += 0.5
         }
         .padding(50)
         .background(.red)
@@ -24,7 +24,7 @@ struct ContentView: View {
         .animation(.default, value: animationAmount)
 
         Button("Spring me") {
-            springAnimationAmount += 1
+            springAnimationAmount += 0.5
         }
         .padding(50)
         .background(.yellow)
@@ -37,11 +37,11 @@ struct ContentView: View {
         )
 
         Button("Ease me") {
-            easeInOutAnimationAmount += 1
+            easeInOutAnimationAmount += 0.5
         }
         .padding(50)
         .background(.blue)
-        .foregroundStyle(.black)
+        .foregroundStyle(.white)
         .clipShape(.circle)
         .scaleEffect(easeInOutAnimationAmount)
         .animation(
