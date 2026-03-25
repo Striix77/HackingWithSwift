@@ -12,12 +12,15 @@ struct ContentView: View {
     @State private var wakeUp = defaultWakeTime
     @State private var sleepAmount = 8.0
     @State private var coffeeAmount = 1
-    
+
     init() {
-        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
-        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        }
-    
+        UINavigationBar.appearance().titleTextAttributes = [
+            .foregroundColor: UIColor.white
+        ]
+        UINavigationBar.appearance().largeTitleTextAttributes = [
+            .foregroundColor: UIColor.white
+        ]
+    }
 
     var body: some View {
         NavigationStack {
@@ -27,14 +30,14 @@ struct ContentView: View {
                     DesiredSleepStepperView(sleepAmount: $sleepAmount)
                     DailyCoffeeIntakePickerView(coffeeAmount: $coffeeAmount)
                     IdealBedtimeView(idealSleepAmount: idealSleepAmount)
-                    .listRowBackground(
-                        Color(
-                            red: 0.2,
-                            green: 0.6,
-                            blue: 1,
-                            opacity: 0.20
+                        .listRowBackground(
+                            Color(
+                                red: 0.2,
+                                green: 0.6,
+                                blue: 1,
+                                opacity: 0.20
+                            )
                         )
-                    )
 
                 }
                 .scrollContentBackground(.hidden)
@@ -56,11 +59,11 @@ struct ContentView: View {
                 )
             }
             .navigationTitle("BetterRest")
-            
+
         }
         .foregroundStyle(Color.white)
     }
-    
+
     private var idealSleepAmount: Date? {
         do {
             let config = MLModelConfiguration()
@@ -97,7 +100,7 @@ struct ContentView: View {
 }
 
 struct WakeUpTimePickerView: View {
-    @Binding var wakeUp:Date
+    @Binding var wakeUp: Date
     var body: some View {
         Section(
             header: Text("When do you want to wake up?")
@@ -124,7 +127,7 @@ struct WakeUpTimePickerView: View {
     }
 }
 
-struct DesiredSleepStepperView:View {
+struct DesiredSleepStepperView: View {
     @Binding var sleepAmount: Double
     var body: some View {
         Section(
@@ -174,8 +177,8 @@ struct DailyCoffeeIntakePickerView: View {
     }
 }
 
-struct IdealBedtimeView:View {
-    let idealSleepAmount:Date?
+struct IdealBedtimeView: View {
+    let idealSleepAmount: Date?
     var body: some View {
         Section(
             header: HStack {
