@@ -8,15 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var usedWords = [String]()
-    @State private var rootWord = ""
-    @State private var newWord = ""
-
-    @State private var errorTitle = ""
-    @State private var errorMessage = ""
-    @State private var showingError = false
-
-    @State private var score = 0
+    @State private var viewModel = GameViewModel()
 
     init() {
         UINavigationBar.appearance().titleTextAttributes = [
@@ -44,14 +36,13 @@ struct ContentView: View {
                     .ignoresSafeArea()
                 List {
                     Section {
-                        HStack{
+                        HStack {
                             Spacer()
-                            Text(rootWord)
+                            Text(viewModel.rootWord)
                                 .font(.largeTitle)
                             Spacer()
                         }
-                        
-                            
+
                     }
                     .listRowBackground(
                         Color(red: 0.18, green: 0.294, blue: 0.38)
@@ -64,11 +55,11 @@ struct ContentView: View {
                             opacity: 1
                         )
                     )
-                    
+
                     Section {
                         TextField(
                             "",
-                            text: $newWord,
+                            text: $viewModel.newWord,
                             prompt: Text("Enter your word").foregroundStyle(
                                 Color.gray
                             )
@@ -82,7 +73,7 @@ struct ContentView: View {
                     )
 
                     Section {
-                        ForEach(usedWords, id: \.self) { word in
+                        ForEach(viewModel.usedWords, id: \.self) { word in
                             HStack {
                                 Spacer()
                                 Image(systemName: "\(word.count).circle")
@@ -102,131 +93,27 @@ struct ContentView: View {
                 .toolbar {
                     ToolbarItem(placement: .bottomBar) {
                         Button("Restart") {
-                            startGame()
+                            viewModel.startGame()
                         }
                     }
 
                     ToolbarItem(placement: .topBarTrailing) {
-                        Text("Score: \(score)")
+                        Text("Score: \(viewModel.score)")
                             .padding()
                     }
                 }
                 .scrollContentBackground(.hidden)
 
             }
-            .onSubmit(addNewWord)
-            .onAppear(perform: startGame)
-            .alert(errorTitle, isPresented: $showingError) {
+            .onSubmit(viewModel.addNewWord)
+            .onAppear(perform: viewModel.startGame)
+            .alert(viewModel.errorTitle, isPresented: $viewModel.showingError) {
 
             } message: {
-                Text(errorMessage)
+                Text(viewModel.errorMessage)
             }
 
         }
-    }
-
-    func startGame() {
-        if let startWordsURL = Bundle.main.url(
-            forResource: "start",
-            withExtension: "txt"
-        ) {
-            if let startWords = try? String(
-                contentsOf: startWordsURL,
-                encoding: .utf8
-            ) {
-                let allWords = startWords.components(separatedBy: "\n")
-                rootWord = allWords.randomElement() ?? "moist"
-                withAnimation {
-                    usedWords.removeAll()
-                }
-                score = 0
-                return
-            }
-        }
-        fatalError("Could not load start.txt from bundle!")
-    }
-
-    func addNewWord() {
-        let answer = newWord.lowercased().trimmingCharacters(
-            in: .whitespacesAndNewlines
-        )
-
-        guard !isTooShort(answer) else {
-            wordError(
-                title: "Word is too short!",
-                message: "Length does matter!"
-            )
-            return
-        }
-
-        guard isOriginal(answer) else {
-            wordError(title: "Word used already!", message: "Try another one!")
-            return
-        }
-
-        guard isPossible(answer) else {
-            wordError(
-                title: "Word not possible!",
-                message:
-                    "You can't spell that word from '\(rootWord)''s letters!"
-            )
-            return
-        }
-
-        guard isReal(answer) else {
-            wordError(
-                title: "Word not recognized!",
-                message: "You can't just make 'em up!"
-            )
-            return
-        }
-
-        withAnimation {
-            usedWords.insert(answer, at: 0)
-        }
-        score += answer.count
-        newWord = ""
-    }
-
-    func isOriginal(_ word: String) -> Bool {
-        word != rootWord && !usedWords.contains(word)
-    }
-
-    func isPossible(_ word: String) -> Bool {
-        var tempWord = rootWord
-        for letter in word {
-            if let pos = tempWord.firstIndex(of: letter) {
-                tempWord.remove(at: pos)
-            } else {
-                return false
-            }
-        }
-
-        return true
-    }
-
-    func isReal(_ word: String) -> Bool {
-        let checker = UITextChecker()
-        let range = NSRange(location: 0, length: word.utf16.count)
-        let misspelledRange = checker.rangeOfMisspelledWord(
-            in: word,
-            range: range,
-            startingAt: 0,
-            wrap: false,
-            language: "en"
-        )
-
-        return misspelledRange.location == NSNotFound
-    }
-
-    func isTooShort(_ word: String) -> Bool {
-        word.count < 3
-    }
-
-    func wordError(title: String, message: String) {
-        errorTitle = title
-        errorMessage = message
-        showingError = true
     }
 
 }
