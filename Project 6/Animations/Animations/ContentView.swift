@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var animationAmount = 1.0
     @State private var springAnimationAmount = 1.0
+    @State private var easeInOutAnimationAmount = 1.0
     var body: some View {
         Button("Tap me") {
             animationAmount += 1
@@ -33,6 +34,20 @@ struct ContentView: View {
         .animation(
             .spring(duration: 0.5, bounce: 0.3),
             value: springAnimationAmount
+        )
+
+        Button("Ease me") {
+            easeInOutAnimationAmount += 1
+        }
+        .padding(50)
+        .background(.blue)
+        .foregroundStyle(.black)
+        .clipShape(.circle)
+        .scaleEffect(easeInOutAnimationAmount)
+        .animation(
+            .easeInOut(duration: 1)
+                .delay(1),
+            value: easeInOutAnimationAmount
         )
 
     }
