@@ -25,6 +25,12 @@ struct ExpensesListView: View {
             }
         }
         .navigationTitle("iExpense")
+        .toolbar{
+            Button("Add expense", systemImage: "plus"){
+                let expense = ExpenseItem(name: "Test", type: "Personal", amount: 5)
+                expenses.items.append(expense)
+            }
+        }
     }
 }
 
