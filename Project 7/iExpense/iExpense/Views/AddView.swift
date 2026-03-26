@@ -11,6 +11,8 @@ struct AddView: View {
     @State private var name = ""
     @State private var type = "Personal"
     @State private var amount = 0.0
+    
+    @Binding var showingAddExpense: Bool
 
     let types = ["Business", "Personal"]
 
@@ -35,10 +37,18 @@ struct AddView: View {
                 .keyboardType(.decimalPad)
             }
             .navigationTitle("Add new expense")
+            .toolbar{
+                Button("Save") {
+                    let item = ExpenseItem(name: name, type: type, amount: amount)
+                    expenses.items.append(item)
+                    showingAddExpense = false
+                }
+            }
         }
     }
 }
 
 #Preview {
-    AddView(expenses: Expenses())
+    @Previewable @State var show = true
+    AddView(showingAddExpense: $show, expenses: Expenses())
 }
