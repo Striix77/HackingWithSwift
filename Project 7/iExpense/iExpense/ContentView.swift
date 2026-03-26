@@ -24,7 +24,7 @@ struct ExpensesListView: View {
     var removeItems: (IndexSet) -> Void
     var body: some View {
         List {
-            ForEach(expenses.items, id: \.name) { item in
+            ForEach(expenses.items) { item in
                 Text(item.name)
             }
             .onDelete(perform: removeItems)
