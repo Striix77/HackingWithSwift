@@ -23,12 +23,32 @@ final class iExpenseUITests: XCTestCase {
     }
 
     @MainActor
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    func testAddingNewExpenseUpdatesList() throws {
         let app = XCUIApplication()
         app.launch()
 
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let addButton = app.buttons["Add expense"]
+        XCTAssertTrue(addButton.exists)
+        addButton.tap()
+        
+        let nameField = app.textFields["NameTextField"]
+        XCTAssertTrue(nameField.exists)
+        nameField.tap()
+        nameField.typeText("New Headphones")
+        
+        let amountField = app.textFields["AmountTextField"]
+        XCTAssertTrue(amountField.exists)
+        amountField.tap()
+        amountField.typeText("150")
+        
+        let saveButton = app.buttons["Save"]
+        XCTAssertTrue(saveButton.exists)
+        saveButton.tap()
+        
+        let newList = app.collectionViews["ExpansesList"]
+        let newRow = newList.cells.staticTexts["New Headphones"]
+        
+        XCTAssertTrue(newRow.waitForExistence(timeout: 2.0), "The new expense should appear in the list.")
     }
 
     @MainActor

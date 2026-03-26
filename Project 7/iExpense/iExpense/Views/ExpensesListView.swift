@@ -40,9 +40,11 @@ struct ExpensesListView: View {
                                 ? .green : (item.amount < 100 ? .primary : .red)
                         )
                 }
+                .accessibilityIdentifier("Expense item_\(item.name)")
             }
             .onDelete(perform: removeItems)
         }
+        .accessibilityIdentifier("ExpansesList")
         .navigationTitle("iExpense")
         .toolbar {
             ToolbarItem(placement: .bottomBar) {

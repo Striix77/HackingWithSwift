@@ -27,6 +27,7 @@ struct AddView: View {
         NavigationStack {
             Form {
                 TextField("Name", text: $name)
+                    .accessibilityIdentifier("NameTextField")
 
                 Picker("Type", selection: $type) {
                     ForEach(types, id: \.self) {
@@ -41,6 +42,7 @@ struct AddView: View {
                         format: .currency(code: currency)
                     )
                     .keyboardType(.decimalPad)
+                    .accessibilityIdentifier("AmountTextField")
                     
                     Picker("", selection: $currency) {
                         ForEach(availableCurrencies, id:\.self){
