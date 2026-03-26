@@ -6,6 +6,7 @@
 //
 
 import Testing
+
 @testable import iExpense
 
 struct iExpenseTests {
@@ -22,6 +23,18 @@ struct iExpenseTests {
         #expect(expenses.items.count == initialCount + 1)
         #expect(expenses.items.last?.name == "Test")
     }
+    
+    @MainActor
+    @Test("Deleting expenses should decrement count")
+    func testDeletingExpense() async throws {
+        let expenses = Expenses()
+        let initialCount = expenses.items.count
+        let newItem = ExpenseItem(name: "Test", type: "Personal", amount: 100, currency: "USD")
+        
+        expenses.items.append(newItem)
+        expenses.items.removeLast()
+        
+        #expect(expenses.items.count == initialCount)
     }
 
 }
