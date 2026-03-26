@@ -34,18 +34,20 @@ struct AddView: View {
                     }
                 }
                 
-                Picker("Currency", selection: $currency) {
-                    ForEach(availableCurrencies, id:\.self){
-                        Text($0)
+                HStack{
+                    TextField(
+                        "Amount",
+                        value: $amount,
+                        format: .currency(code: currency)
+                    )
+                    .keyboardType(.decimalPad)
+                    
+                    Picker("", selection: $currency) {
+                        ForEach(availableCurrencies, id:\.self){
+                            Text($0)
+                        }
                     }
                 }
-
-                TextField(
-                    "Amount",
-                    value: $amount,
-                    format: .currency(code: currency)
-                )
-                .keyboardType(.decimalPad)
             }
             .navigationTitle("Add new expense")
             .toolbar{

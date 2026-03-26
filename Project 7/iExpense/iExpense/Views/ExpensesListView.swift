@@ -22,6 +22,9 @@ struct ExpensesListView: View {
                     }
                     Spacer()
                     Text(item.amount, format: .currency(code: item.currency))
+                        .foregroundStyle(
+                            item.amount < 10 ? .green : (item.amount < 100 ? .primary : .red)
+                        )
                 }
             }
             .onDelete(perform: removeItems)
@@ -37,3 +40,4 @@ struct ExpensesListView: View {
         }
     }
 }
+
