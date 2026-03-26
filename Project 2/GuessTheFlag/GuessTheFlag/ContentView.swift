@@ -17,16 +17,8 @@ struct ContentView: View {
                 TitleView(roundNumber: viewModel.roundNumber)
                 VStack(spacing: 15) {
                     GamePromptView(countries: viewModel.countries, correctAnswer: viewModel.correctAnswer)
-                    ForEach(0..<3) { number in
-                        Button {
-                            viewModel.flagTapped(number)
-                        } label: {
-                            FlagImage(imgURL: viewModel.countries[number])
-                        }
-                    }
-
+                    FlagButtonView(flagTapped: viewModel.flagTapped, countries: viewModel.countries)
                 }
-
                 Spacer()
                 Spacer()
                 Text("Score: \(viewModel.score)")
@@ -99,6 +91,20 @@ struct GamePromptView: View {
         .padding(.vertical, 20)
         .background(.regularMaterial)
         .clipShape(.rect(cornerRadius: 20))
+    }
+}
+
+struct FlagButtonView: View {
+    let flagTapped: (Int) -> Void
+    let countries: [String]
+    var body: some View {
+        ForEach(0..<3) { number in
+            Button {
+                flagTapped(number)
+            } label: {
+                FlagImage(imgURL: countries[number])
+            }
+        }
     }
 }
 
