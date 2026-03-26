@@ -7,16 +7,6 @@
 
 import SwiftUI
 
-struct FlagImage: View {
-    let imgURL: String
-    
-    var body: some View {
-        Image(imgURL)
-            .clipShape(.capsule)
-            .shadow(radius: 5)
-    }
-}
-
 struct ContentView: View {
     @State var viewModel = GameViewModel()
     var body: some View {
