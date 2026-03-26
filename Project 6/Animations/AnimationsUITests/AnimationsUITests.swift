@@ -23,8 +23,18 @@ final class AnimationsUITests: XCTestCase {
     }
 
     @MainActor
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    func testToggleRedRectangle() throws {
+        let app = XCUIApplication()
+        app.launch()
+
+        let toggleRedButton = app.buttons["ToggleRedButton"]
+        let redRectangle = app.otherElements["RedRectangle"]
+
+        XCTAssertFalse(redRectangle.exists)
+
+        toggleRedButton.tap()
+
+        XCTAssertTrue(redRectangle.waitForExistence(timeout: 2))
     }
     @MainActor
     func testDraggableGradientReset() {
