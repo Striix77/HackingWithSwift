@@ -16,19 +16,7 @@ struct ContentView: View {
                 Spacer()
                 TitleView(roundNumber: viewModel.roundNumber)
                 VStack(spacing: 15) {
-                    VStack {
-                        Text("Tap the flag of")
-                            .foregroundStyle(.secondary)
-                            .font(.subheadline.weight(.heavy))
-                        Text(viewModel.countries[viewModel.correctAnswer])
-                            .foregroundStyle(.secondary)
-                            .font(.largeTitle.weight(.semibold))
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 20)
-                    .background(.regularMaterial)
-                    .clipShape(.rect(cornerRadius: 20))
-
+                    GamePromptView(countries: viewModel.countries, correctAnswer: viewModel.correctAnswer)
                     ForEach(0..<3) { number in
                         Button {
                             viewModel.flagTapped(number)
@@ -82,6 +70,7 @@ struct ContentView: View {
     }
 }
 
+
 struct TitleView: View {
     let roundNumber: Int
     var body: some View {
@@ -91,6 +80,25 @@ struct TitleView: View {
         Text("Round \(roundNumber+1)")
             .font(.title)
             .foregroundStyle(.white)
+    }
+}
+
+struct GamePromptView: View {
+    let countries: [String]
+    let correctAnswer: Int
+    var body: some View {
+        VStack {
+            Text("Tap the flag of")
+                .foregroundStyle(.secondary)
+                .font(.subheadline.weight(.heavy))
+            Text(countries[correctAnswer])
+                .foregroundStyle(.secondary)
+                .font(.largeTitle.weight(.semibold))
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 20)
+        .background(.regularMaterial)
+        .clipShape(.rect(cornerRadius: 20))
     }
 }
 
