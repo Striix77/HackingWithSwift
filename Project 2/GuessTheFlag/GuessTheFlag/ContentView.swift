@@ -14,13 +14,7 @@ struct ContentView: View {
             backgroundGradient
             VStack {
                 Spacer()
-                Text("Guess The Flag")
-                    .font(.largeTitle.weight(.bold))
-                    .foregroundStyle(.white)
-                Text("Round \(viewModel.roundNumber+1)")
-                    .font(.title)
-                    .foregroundStyle(.white)
-
+                TitleView(roundNumber: viewModel.roundNumber)
                 VStack(spacing: 15) {
                     VStack {
                         Text("Tap the flag of")
@@ -85,6 +79,18 @@ struct ContentView: View {
             endRadius: 400
         )
         .ignoresSafeArea()
+    }
+}
+
+struct TitleView: View {
+    let roundNumber: Int
+    var body: some View {
+        Text("Guess The Flag")
+            .font(.largeTitle.weight(.bold))
+            .foregroundStyle(.white)
+        Text("Round \(roundNumber+1)")
+            .font(.title)
+            .foregroundStyle(.white)
     }
 }
 
