@@ -21,7 +21,7 @@ struct ExpensesListView: View {
                         Text(item.type)
                     }
                     Spacer()
-                    Text(item.amount, format: .currency(code: "USD"))
+                    Text(item.amount, format: .currency(code: item.currency))
                 }
             }
             .onDelete(perform: removeItems)
