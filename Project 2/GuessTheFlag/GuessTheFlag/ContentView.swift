@@ -133,7 +133,7 @@ struct FlagButtonView: View {
 
         }
         .onChange(of: countries) {
-            withAnimation{
+            withAnimation {
                 selectedFlagOpacity = [1.0, 1.0, 1.0]
                 selectedFlagScale = [1.0, 1.0, 1.0]
             }
