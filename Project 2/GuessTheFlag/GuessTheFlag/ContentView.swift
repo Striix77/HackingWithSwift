@@ -101,6 +101,7 @@ struct GamePromptView: View {
 struct FlagButtonView: View {
     @State private var selectedFlagRotation = [0.0, 0.0, 0.0]
     @State private var selectedFlagOpacity = [1.0, 1.0, 1.0]
+    @State private var selectedFlagScale = [1.0, 1.0, 1.0]
 
     let flagTapped: (Int) -> Void
     let countries: [String]
@@ -116,6 +117,7 @@ struct FlagButtonView: View {
                     if buttonNumber != number {
                         withAnimation {
                             selectedFlagOpacity[buttonNumber] = 0.25
+                            selectedFlagScale[buttonNumber] = 0.75
                         }
                     }
                 }
@@ -127,10 +129,14 @@ struct FlagButtonView: View {
                 axis: (x: 0, y: 1, z: 0)
             )
             .opacity(selectedFlagOpacity[number])
+            .scaleEffect(selectedFlagScale[number])
 
         }
         .onChange(of: countries) {
-            selectedFlagOpacity = [1.0, 1.0, 1.0]
+            withAnimation{
+                selectedFlagOpacity = [1.0, 1.0, 1.0]
+                selectedFlagScale = [1.0, 1.0, 1.0]
+            }
         }
     }
 }
