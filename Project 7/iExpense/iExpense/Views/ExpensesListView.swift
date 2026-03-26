@@ -13,17 +13,18 @@ struct ExpensesListView: View {
     var body: some View {
         List {
             ForEach(expenses.items) { item in
-                HStack{
-                    VStack(alignment: .leading){
+                HStack {
+                    VStack(alignment: .leading) {
                         Text(item.name)
                             .font(.headline)
-                        
+
                         Text(item.type)
                     }
                     Spacer()
                     Text(item.amount, format: .currency(code: item.currency))
                         .foregroundStyle(
-                            item.amount < 10 ? .green : (item.amount < 100 ? .primary : .red)
+                            item.amount < 10
+                                ? .green : (item.amount < 100 ? .primary : .red)
                         )
                 }
             }
@@ -31,8 +32,10 @@ struct ExpensesListView: View {
         }
         .navigationTitle("iExpense")
         .toolbar {
-            Button("Add expense", systemImage: "plus") {
-                showingAddExpense = true
+            ToolbarItem(placement: .bottomBar) {
+                Button("Add expense", systemImage: "plus") {
+                    showingAddExpense = true
+                }
             }
         }
         .sheet(isPresented: $showingAddExpense) {
@@ -40,4 +43,3 @@ struct ExpensesListView: View {
         }
     }
 }
-
