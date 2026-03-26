@@ -16,8 +16,14 @@ struct ContentView: View {
                 Spacer()
                 TitleView(roundNumber: viewModel.roundNumber)
                 VStack(spacing: 15) {
-                    GamePromptView(countries: viewModel.countries, correctAnswer: viewModel.correctAnswer)
-                    FlagButtonView(flagTapped: viewModel.flagTapped, countries: viewModel.countries)
+                    GamePromptView(
+                        countries: viewModel.countries,
+                        correctAnswer: viewModel.correctAnswer
+                    )
+                    FlagButtonView(
+                        flagTapped: viewModel.flagTapped,
+                        countries: viewModel.countries
+                    )
                 }
                 Spacer()
                 Spacer()
@@ -32,15 +38,16 @@ struct ContentView: View {
             Text(viewModel.alertMessage)
 
         }
-        .alert(viewModel.scoreTitle, isPresented: $viewModel.showingFinalScore) {
+        .alert(viewModel.scoreTitle, isPresented: $viewModel.showingFinalScore)
+        {
             Button("Restart", action: viewModel.reset)
         } message: {
             Text(viewModel.alertMessage)
 
         }
     }
-    
-    var backgroundGradient: some View{
+
+    var backgroundGradient: some View {
         RadialGradient(
             stops: [
                 .init(
@@ -59,7 +66,6 @@ struct ContentView: View {
         .ignoresSafeArea()
     }
 }
-
 
 struct TitleView: View {
     let roundNumber: Int
@@ -93,15 +99,26 @@ struct GamePromptView: View {
 }
 
 struct FlagButtonView: View {
+    @State private var selectedFlagRotation = [0.0, 0.0, 0.0]
+
     let flagTapped: (Int) -> Void
     let countries: [String]
+    
     var body: some View {
         ForEach(0..<3) { number in
             Button {
                 flagTapped(number)
+                withAnimation(.spring(duration: 0.7, bounce: 0.5)) {
+                    selectedFlagRotation[number] += 360
+                }
             } label: {
                 FlagImage(imgURL: countries[number])
             }
+            .rotation3DEffect(
+                .degrees(selectedFlagRotation[number]),
+                axis: (x: 0, y: 1, z: 0)
+            )
+
         }
     }
 }
@@ -114,7 +131,6 @@ struct ScoreText: View {
             .font(.title.bold())
     }
 }
-
 
 #Preview {
     ContentView()
