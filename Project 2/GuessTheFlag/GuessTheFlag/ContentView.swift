@@ -18,58 +18,7 @@ struct FlagImage: View {
 }
 
 struct ContentView: View {
-    @State private var countries = [
-        "Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland",
-        "Spain", "UK", "Ukraine", "US",
-    ].shuffled()
-    @State private var correctAnswer = Int.random(in: 0...2)
-    @State private var showingScore = false
-    @State private var showingFinalScore = false
-    @State private var scoreTitle = ""
-    @State private var score = 0
-    @State private var alertMessage = ""
-    @State private var maxRoundNumber = 8
-    @State private var roundNumber = 0
-
-    func flagTapped(_ number: Int) {
-        if number == correctAnswer {
-            scoreTitle = "Correct!"
-            score += 10
-            alertMessage = "You got it right! Nice job!"
-        } else {
-            scoreTitle = "Wrong!"
-            score -= 10
-            if score < 0 {
-                score = 0
-            }
-            alertMessage =
-                "So close! That is the flag of \(countries[number])!"
-        }
-        if roundNumber == maxRoundNumber - 1 {
-            alertMessage+="\nYour final score is \(score)!"
-            showingFinalScore = true
-        }
-        else{
-            alertMessage+="\nYour score is \(score)!"
-            showingScore = true
-        }
-        
-    }
-
-    func askQuestion() {
-        countries.shuffle()
-        correctAnswer = Int.random(in: 0...2)
-        roundNumber += 1
-    }
-
-    func reset() {
-        askQuestion()
-        if(roundNumber == maxRoundNumber){
-            roundNumber = 0
-            score = 0
-        }
-    }
-
+    @State var viewModel = GameViewModel()
     var body: some View {
         ZStack {
             RadialGradient(
@@ -94,7 +43,7 @@ struct ContentView: View {
                 Text("Guess The Flag")
                     .font(.largeTitle.weight(.bold))
                     .foregroundStyle(.white)
-                Text("Round \(roundNumber+1)")
+                Text("Round \(viewModel.roundNumber+1)")
                     .font(.title)
                     .foregroundStyle(.white)
 
@@ -103,7 +52,7 @@ struct ContentView: View {
                         Text("Tap the flag of")
                             .foregroundStyle(.secondary)
                             .font(.subheadline.weight(.heavy))
-                        Text(countries[correctAnswer])
+                        Text(viewModel.countries[viewModel.correctAnswer])
                             .foregroundStyle(.secondary)
                             .font(.largeTitle.weight(.semibold))
                     }
@@ -114,9 +63,9 @@ struct ContentView: View {
 
                     ForEach(0..<3) { number in
                         Button {
-                            flagTapped(number)
+                            viewModel.flagTapped(number)
                         } label: {
-                            FlagImage(imgURL: countries[number])
+                            FlagImage(imgURL: viewModel.countries[number])
                         }
                     }
 
@@ -124,23 +73,23 @@ struct ContentView: View {
 
                 Spacer()
                 Spacer()
-                Text("Score: \(score)")
+                Text("Score: \(viewModel.score)")
                     .foregroundStyle(.white)
                     .font(.title.bold())
                 Spacer()
             }
             .padding()
         }
-        .alert(scoreTitle, isPresented: $showingScore) {
-            Button("Continue", action: askQuestion)
+        .alert(viewModel.scoreTitle, isPresented: $viewModel.showingScore) {
+            Button("Continue", action: viewModel.askQuestion)
         } message: {
-            Text(alertMessage)
+            Text(viewModel.alertMessage)
 
         }
-        .alert(scoreTitle, isPresented: $showingFinalScore) {
-            Button("Restart", action: reset)
+        .alert(viewModel.scoreTitle, isPresented: $viewModel.showingFinalScore) {
+            Button("Restart", action: viewModel.reset)
         } message: {
-            Text(alertMessage)
+            Text(viewModel.alertMessage)
 
         }
     }
