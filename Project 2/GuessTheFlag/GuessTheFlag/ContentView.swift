@@ -100,16 +100,24 @@ struct GamePromptView: View {
 
 struct FlagButtonView: View {
     @State private var selectedFlagRotation = [0.0, 0.0, 0.0]
+    @State private var selectedFlagOpacity = [1.0, 1.0, 1.0]
 
     let flagTapped: (Int) -> Void
     let countries: [String]
-    
+
     var body: some View {
-        ForEach(0..<3) { number in
+        return ForEach(0..<3) { number in
             Button {
                 flagTapped(number)
                 withAnimation(.spring(duration: 0.7, bounce: 0.5)) {
                     selectedFlagRotation[number] += 360
+                }
+                for buttonNumber in 0...2 {
+                    if buttonNumber != number {
+                        withAnimation {
+                            selectedFlagOpacity[buttonNumber] = 0.25
+                        }
+                    }
                 }
             } label: {
                 FlagImage(imgURL: countries[number])
@@ -118,7 +126,11 @@ struct FlagButtonView: View {
                 .degrees(selectedFlagRotation[number]),
                 axis: (x: 0, y: 1, z: 0)
             )
+            .opacity(selectedFlagOpacity[number])
 
+        }
+        .onChange(of: countries) {
+            selectedFlagOpacity = [1.0, 1.0, 1.0]
         }
     }
 }
