@@ -8,14 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var expenses = Expenses()
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack{
+            ExpensesListView(expenses:expenses)
         }
-        .padding()
+    }
+}
+
+struct ExpensesListView: View {
+    let expenses: Expenses
+    var body: some View {
+        List {
+            ForEach(expenses.items, id:\.name ){ item in
+                Text(item.name)
+            }
+        }
+        .navigationTitle("iExpense")
     }
 }
 
