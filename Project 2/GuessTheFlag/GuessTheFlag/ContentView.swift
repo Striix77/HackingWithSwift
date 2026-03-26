@@ -21,9 +21,7 @@ struct ContentView: View {
                 }
                 Spacer()
                 Spacer()
-                Text("Score: \(viewModel.score)")
-                    .foregroundStyle(.white)
-                    .font(.title.bold())
+                ScoreText(score: viewModel.score)
                 Spacer()
             }
             .padding()
@@ -107,6 +105,16 @@ struct FlagButtonView: View {
         }
     }
 }
+
+struct ScoreText: View {
+    let score: Int
+    var body: some View {
+        Text("Score: \(score)")
+            .foregroundStyle(.white)
+            .font(.title.bold())
+    }
+}
+
 
 #Preview {
     ContentView()
