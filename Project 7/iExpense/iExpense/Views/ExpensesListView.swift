@@ -24,7 +24,7 @@ struct ExpensesListView: View {
             }
         }
         .sheet(isPresented: $showingAddExpense) {
-            AddView(showingAddExpense: $showingAddExpense, expenses: expenses)
+            AddView(expenses: expenses)
         }
     }
 }
