@@ -13,7 +13,16 @@ struct ExpensesListView: View {
     var body: some View {
         List {
             ForEach(expenses.items) { item in
-                Text(item.name)
+                HStack{
+                    VStack(alignment: .leading){
+                        Text(item.name)
+                            .font(.headline)
+                        
+                        Text(item.type)
+                    }
+                    Spacer()
+                    Text(item.amount, format: .currency(code: "USD"))
+                }
             }
             .onDelete(perform: removeItems)
         }
