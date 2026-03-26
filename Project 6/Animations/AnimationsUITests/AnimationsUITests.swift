@@ -25,10 +25,32 @@ final class AnimationsUITests: XCTestCase {
     @MainActor
     func testExample() throws {
         // UI tests must launch the application that they test.
+    }
+    @MainActor
+    func testDraggableGradientReset() {
         let app = XCUIApplication()
         app.launch()
+        
+        let gradient = app.scrollViews.otherElements["DraggableGradient"]
+        
+        while !gradient.isHittable {
+            app.swipeUp()
+        }
+        
+        let initialFrame = gradient.frame
+        
+        let start = gradient.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+        let end = gradient.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.9))
+        
+        start.press(forDuration: 0.1, thenDragTo: end)
+        
+        XCTAssertTrue(gradient.exists, "The gradient should still exist.")
 
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        _ = XCTWaiter.wait(for: [XCTestExpectation(description: "Wait for animation")], timeout: 2)
+        
+        let finalFrame = gradient.frame
+        
+        XCTAssertEqual([initialFrame.origin.x,initialFrame.origin.y], [finalFrame.origin.x,finalFrame.origin.y], "The gradient should return to its original coordinates.")
     }
 
     @MainActor
