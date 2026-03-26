@@ -10,8 +10,18 @@ import Testing
 
 struct iExpenseTests {
 
-    @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+    @MainActor
+    @Test("Adding new expenses should increment count")
+    func testAddingExpenseIncrementsCount() async throws {
+        let expenses = Expenses()
+        let initialCount = expenses.items.count
+        let newItem = ExpenseItem(name: "Test", type: "Personal", amount: 100, currency: "USD")
+        
+        expenses.items.append(newItem)
+        
+        #expect(expenses.items.count == initialCount + 1)
+        #expect(expenses.items.last?.name == "Test")
+    }
     }
 
 }
