@@ -36,6 +36,21 @@ final class AnimationsUITests: XCTestCase {
 
         XCTAssertTrue(redRectangle.waitForExistence(timeout: 2))
     }
+
+    @MainActor
+    func testSpinningButtonRemainsHittable() {
+        let app = XCUIApplication()
+        app.launch()
+
+        let spinButton = app.buttons["Spin Me"]
+        XCTAssertTrue(spinButton.exists)
+        
+        spinButton.tap()
+        spinButton.tap()
+
+        XCTAssertTrue(spinButton.isHittable)
+    }
+    
     @MainActor
     func testDraggableGradientReset() {
         let app = XCUIApplication()
