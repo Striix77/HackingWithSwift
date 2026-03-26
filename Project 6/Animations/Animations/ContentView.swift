@@ -201,6 +201,7 @@ struct ContentView: View {
                     }
                 }
         )
+        .accessibilityIdentifier("DraggableGradient")
         //.animation(.bouncy, value:dragAmount)
     }
     
@@ -235,6 +236,7 @@ struct ContentView: View {
                     isShowingRed.toggle()
                 }
             }
+            .accessibilityIdentifier("ToggleRedButton")
 
             if isShowingRed {
                 Rectangle()
@@ -243,6 +245,7 @@ struct ContentView: View {
                     .transition(
                         .asymmetric(insertion: .opacity, removal: .scale)
                     )
+                    .accessibilityIdentifier("RedRectangle")
             }
         }
     }
