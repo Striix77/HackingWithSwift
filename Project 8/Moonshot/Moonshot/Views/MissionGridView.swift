@@ -7,13 +7,16 @@
 
 import SwiftUI
 
-struct MissionListView: View {
+struct MissionGridView: View {
     let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
     let missions: [Mission] = Bundle.main.decode("missions.json")
 
+    let columns = [
+        GridItem(.adaptive(minimum: 150))
+    ]
     var body: some View {
         ScrollView {
-            LazyVStack{
+            LazyVGrid(columns: columns) {
                 ForEach(missions) { mission in
                     NavigationLink {
                         MissionDetailsView(mission: mission,astronauts: astronauts)
