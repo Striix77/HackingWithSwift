@@ -14,7 +14,7 @@ struct CrewScrollView: View {
             HStack {
                 ForEach(crew, id: \.role) { crewMember in
                     NavigationLink {
-                        Text("Astronaut details")
+                        AstronautDetailsView(astronaut: crewMember.astronaut)
                     } label: {
                         HStack {
                             Image(crewMember.astronaut.id)
