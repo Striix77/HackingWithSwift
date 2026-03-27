@@ -28,6 +28,9 @@ struct MissionDetailsView: View {
         ScrollView {
             VStack {
                 missionImage
+                Text(mission.formattedLaunchDate)
+                    .font(.caption)
+                    .foregroundStyle(.gray)
                 VStack(alignment: .leading) {
                     Text("Crew")
                         .font(.title.bold())
@@ -74,6 +77,6 @@ struct MissionDetailsView: View {
     let missions: [Mission] = Bundle.main.decode("missions.json")
     let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
 
-    return MissionDetailsView(mission: missions[0], astronauts: astronauts)
+    return MissionDetailsView(mission: missions[1], astronauts: astronauts)
         .preferredColorScheme(.dark)
 }
