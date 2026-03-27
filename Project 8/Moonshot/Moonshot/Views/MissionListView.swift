@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MissionsView: View {
+struct MissionListView: View {
     let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
     let missions: [Mission] = Bundle.main.decode("missions.json")
 
@@ -19,7 +19,7 @@ struct MissionsView: View {
             LazyVGrid(columns: columns) {
                 ForEach(missions) { mission in
                     NavigationLink {
-                        Text("Detail view")
+                        MissionDetailsView(mission: mission)
                     } label: {
                         MissionCardView(mission: mission)
                     }
@@ -36,5 +36,5 @@ struct MissionsView: View {
 
 
 #Preview {
-    MissionsView()
+    MissionListView()
 }
