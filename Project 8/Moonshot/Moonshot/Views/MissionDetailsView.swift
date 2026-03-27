@@ -29,7 +29,14 @@ struct MissionDetailsView: View {
             VStack {
                 missionImage
                 VStack(alignment: .leading) {
+                    Text("Crew")
+                        .font(.title.bold())
+                        .padding(.bottom, 5)
+                    
                     CrewScrollView(crew: crew)
+                    
+                    separator
+                    
                     Text("Mission Highlights")
                         .font(.title.bold())
                         .padding(.bottom, 5)
@@ -53,6 +60,13 @@ struct MissionDetailsView: View {
                 width * 0.6
             }
             .padding(.top)
+    }
+    
+    var separator: some View{
+        Rectangle()
+            .frame(height: 2)
+            .foregroundStyle(.lightBackground)
+            .padding(.vertical)
     }
 }
 
