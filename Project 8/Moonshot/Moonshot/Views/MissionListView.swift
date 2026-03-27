@@ -27,9 +27,7 @@ struct MissionListView: View {
                 .padding([.horizontal, .bottom])
             }
         }
-        .navigationTitle("Moonshot")
-        .background(.darkBackground)
-        .preferredColorScheme(.dark)
+        
     }
 }
 
