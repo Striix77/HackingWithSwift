@@ -47,29 +47,38 @@ struct ExpensesListView: View {
         .accessibilityIdentifier("ExpansesList")
         .navigationTitle("iExpense")
         .toolbar {
-            ToolbarItem(placement: .bottomBar) {
-                Button("Add expense", systemImage: "plus") {
-                    showingAddExpense = true
-                }
-            }
-            
-            ToolbarItem(placement:.topBarTrailing) {
-                Menu{
-                    Picker("", selection:$expenseType){
-                        ForEach(expenseTypes, id: \.self) {
-                            Text($0)
-                        }
-                    }
-                } label:{
-                    Text(expenseType == "" ? "Filter" : expenseType)
-                        .foregroundStyle(.gray)
-                }
-            }
+                addExpenseButton
+                filterMenu
         }
         .sheet(isPresented: $showingAddExpense) {
             AddView(expenses: expenses)
         }
     }
     
+    private var addExpenseButton: some ToolbarContent {
+        ToolbarItem(placement: .bottomBar) {
+            Button("Add expense", systemImage: "plus") {
+                showingAddExpense = true
+            }
+        }
+    }
+    
+    private var filterMenu: some ToolbarContent {
+        ToolbarItem(placement:.topBarTrailing) {
+            Menu{
+                Picker("", selection:$expenseType){
+                    ForEach(expenseTypes, id: \.self) {
+                        Text($0)
+                    }
+                }
+            } label:{
+                Text(expenseType == "" ? "Filter" : expenseType)
+                    .foregroundStyle(.gray)
+            }
+        }
+    }
+    
     
 }
+
+
