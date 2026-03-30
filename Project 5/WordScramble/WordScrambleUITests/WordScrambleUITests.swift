@@ -28,7 +28,7 @@ final class WordScrambleUITests: XCTestCase {
         app.launchArguments = ["-testMode"]
         app.launch()
 
-        let textField = app.textFields["Enter your word"]
+        let textField = app.textFields["ScrambledWordTextField"]
         XCTAssertTrue(textField.exists, "The word input field should be visible.")
         
         let wordToAdd = "scout"

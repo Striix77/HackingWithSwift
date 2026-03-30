@@ -125,6 +125,7 @@ struct ScrambledWordInputView: View {
             )
             .textInputAutocapitalization(.never)
             .foregroundStyle(Color.white)
+            .accessibilityIdentifier("ScrambledWordTextField")
 
         }
         .listRowBackground(
