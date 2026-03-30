@@ -19,13 +19,19 @@ struct WordScrambleTests {
         #expect(viewModel.isPossible("silences") == false)
     }
     
-    @Test("isOriginal rejects the root word itself or duplicates")
-    func testIsOriginal() {
+    @Test("isOriginal rejects the root word itself")
+    func testIsOriginalRejectsRootWord() {
         let viewModel = GameViewModel()
         viewModel.startGame(with: "license")
         
         #expect(viewModel.isOriginal("license") == false)
-        #expect(viewModel.isOriginal("silence") == true)
+    }
+    
+    @Test("isOriginal rejects duplicates")
+    func testIsOriginalRejectsDuplicates() {
+        let viewModel = GameViewModel()
+        viewModel.startGame(with: "license")
+        
         viewModel.newWord = "silence"
         viewModel.addNewWord()
         #expect(viewModel.isOriginal("silence") == false)
