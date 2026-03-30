@@ -116,7 +116,7 @@ struct ScrambledWordInputView: View {
             TextField(
                 "",
                 text: $newWord,
-                prompt: Text("Enter your word").foregroundStyle(
+                prompt: Text(GameStrings.textFieldPrompt).foregroundStyle(
                     Color.gray
                 )
             )

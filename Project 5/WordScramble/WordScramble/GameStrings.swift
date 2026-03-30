@@ -18,4 +18,5 @@ enum GameStrings {
     }
     static let isRealTitle = "Word not recognized!"
     static let isRealMessage = "You can't just make 'em up!"
+    static let textFieldPrompt = "Enter your word..."
 }
