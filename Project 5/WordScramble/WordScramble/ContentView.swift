@@ -43,10 +43,7 @@ struct ContentView: View {
                 .toolbar {
                     restartButton
 
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Text("Score: \(viewModel.score)")
-                            .padding()
-                    }
+                    scoreView
                 }
                 .scrollContentBackground(.hidden)
 
@@ -74,6 +71,13 @@ struct ContentView: View {
             Button("Restart") {
                 viewModel.startGame()
             }
+        }
+    }
+    
+    private var scoreView: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            Text("Score: \(viewModel.score)")
+                .padding()
         }
     }
 
