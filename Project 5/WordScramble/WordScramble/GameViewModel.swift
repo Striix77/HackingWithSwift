@@ -151,7 +151,6 @@ class GameViewModel {
             wrap: false,
             language: "en"
         )
-        print("MISSPELLED: \(misspelledRange.location)")
         return misspelledRange.location == NSNotFound
     }
 
