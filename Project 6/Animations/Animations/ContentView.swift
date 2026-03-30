@@ -23,7 +23,7 @@ struct ContentView: View {
 
     @State private var isShowingRed = false
     @State private var isShowingGreen = false
-    let letters = Array("Hello SwiftUI")
+    let letters = Array(AppStrings.Labels.helloSwiftUI)
 
     var body: some View {
         ScrollView {
@@ -43,7 +43,7 @@ struct ContentView: View {
     }
 
     var blurryButton: some View {
-        Button("Tap me") {
+        Button(AppStrings.Buttons.tapMe) {
             animationAmount += 0.5
         }
         .animatedButtonStyle(color: .red)
@@ -54,7 +54,7 @@ struct ContentView: View {
     }
     
     var springyButton: some View{
-        Button("Spring me") {
+        Button(AppStrings.Buttons.springMe) {
             springAnimationAmount += 0.5
         }
         .animatedButtonStyle(color: .yellow, textColor: .black)
@@ -66,7 +66,7 @@ struct ContentView: View {
     }
     
     var easingButton: some View{
-        Button("Ease me") {
+        Button(AppStrings.Buttons.easeMe) {
             easeInOutAnimationAmount += 0.5
         }
         .animatedButtonStyle(color: .blue)
@@ -79,7 +79,7 @@ struct ContentView: View {
     }
     
     var repeatingButton: some View{
-        Button("Repeat me") {
+        Button(AppStrings.Buttons.repeatMe) {
             repeatAnimationAmount = 1.5
         }
         .animatedButtonStyle(color: .green)
@@ -92,7 +92,7 @@ struct ContentView: View {
     }
     
     var pulsatingButton: some View {
-        Button("Pulse me") {
+        Button(AppStrings.Buttons.pulseMe) {
             overlayAnimationAmount = 2
         }
         .animatedButtonStyle(color: .cyan)
@@ -112,7 +112,7 @@ struct ContentView: View {
     var scalingStepper: some View{
         VStack {
             Stepper(
-                "Scale amount",
+                AppStrings.Labels.scaleAmount,
                 value: $stepperAnimationAmount.animation(
                     .easeInOut(duration: 0.5)
                         .repeatCount(3, autoreverses: true)
@@ -122,7 +122,7 @@ struct ContentView: View {
 
             Spacer()
 
-            Button("Tap Me") {
+            Button(AppStrings.Buttons.tapMe) {
                 stepperAnimationAmount += 0.5
             }
             .animatedButtonStyle(color: .mint)
@@ -131,7 +131,7 @@ struct ContentView: View {
     }
     
     var spinningButton: some View{
-        Button("Spin Me") {
+        Button(AppStrings.Buttons.spinMe) {
             withAnimation(.spring(duration: 0.7, bounce: 0.5)) {
                 spinAnimationAmount += 360
             }
@@ -154,7 +154,7 @@ struct ContentView: View {
     }
     
     var shapeChangingButton: some View{
-        Button("Rectify Me") {
+        Button(AppStrings.Buttons.rectifyMe) {
             enabled.toggle()
         }
         .frame(width: 120, height: 120)
@@ -183,7 +183,7 @@ struct ContentView: View {
                     }
                 }
         )
-        .accessibilityIdentifier("DraggableGradient")
+        .accessibilityIdentifier(AppStrings.Identifiers.draggableGradient)
     }
     
     var draggableText: some View{
@@ -212,12 +212,12 @@ struct ContentView: View {
     
     var toggleableRectangle: some View{
         VStack {
-            Button("Tap Me") {
+            Button(AppStrings.Buttons.tapMe) {
                 withAnimation {
                     isShowingRed.toggle()
                 }
             }
-            .accessibilityIdentifier("ToggleRedButton")
+            .accessibilityIdentifier(AppStrings.Identifiers.toggleRedButton)
 
             if isShowingRed {
                 Rectangle()
@@ -226,7 +226,7 @@ struct ContentView: View {
                     .transition(
                         .asymmetric(insertion: .opacity, removal: .scale)
                     )
-                    .accessibilityIdentifier("RedRectangle")
+                    .accessibilityIdentifier(AppStrings.Identifiers.redRectangle)
             }
         }
     }
