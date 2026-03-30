@@ -18,20 +18,19 @@ struct MissionGridView: View {
         ScrollView {
             LazyVGrid(columns: columns) {
                 ForEach(missions) { mission in
-                    NavigationLink {
-                        MissionDetailsView(mission: mission,astronauts: astronauts)
-                    } label: {
+                    NavigationLink(value: mission) {
                         MissionCardView(mission: mission)
                     }
                 }
                 .padding([.horizontal, .bottom])
             }
+            .navigationDestination(for: Mission.self) { mission in
+                MissionDetailsView(mission: mission, astronauts: astronauts)
+            }
         }
-        
+
     }
 }
-
-
 
 #Preview {
     MissionListView()
