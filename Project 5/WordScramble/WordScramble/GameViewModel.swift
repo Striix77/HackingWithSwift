@@ -19,6 +19,13 @@ class GameViewModel {
     var newWord = ""
 
     var showingError = false
+    
+    func resetGame() {
+        withAnimation {
+            usedWords.removeAll()
+        }
+        score = 0
+    }
 
     func loadRootWord(from startWordsURL: URL?) throws {
         guard let url = startWordsURL else {
@@ -60,16 +67,12 @@ class GameViewModel {
     func startGame(with fixedWord: String? = nil) {
         if let word = fixedWord {
             rootWord = word
-            usedWords.removeAll()
-            score = 0
+            resetGame()
             return
         }
         do {
             try loadStartWords()
-            withAnimation {
-                usedWords.removeAll()
-            }
-            score = 0
+            resetGame()
         } catch {
             fatalError(GameStrings.fatalError)
         }
