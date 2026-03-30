@@ -11,11 +11,11 @@ struct AddView: View {
     @Environment(\.dismiss) var dismiss
     
     @State private var name = ""
-    @State private var type = "Personal"
-    @State private var amount = 0.0
-    @State private var currency = Locale.current.currency?.identifier ?? "USD"
+    @State private var type = AppDefaults.defaultType
+    @State private var amount = AppDefaults.defaultAmount
+    @State private var currency = Locale.current.currency?.identifier ?? AppDefaults.defaultCurrency
 
-    let types = ["Business", "Personal"]
+    let types = AppDefaults.expenseTypes
     let availableCurrencies: [String] = {
         let locales = Locale.availableIdentifiers.map { Locale(identifier: $0) }
         return Set(locales.compactMap { $0.currency?.identifier })
@@ -26,10 +26,10 @@ struct AddView: View {
     var body: some View {
         NavigationStack {
             Form {
-                TextField("Name", text: $name)
-                    .accessibilityIdentifier("NameTextField")
+                TextField(AppDefaults.namePlaceholder, text: $name)
+                    .accessibilityIdentifier(AppDefaults.nameAccessibilityID)
 
-                Picker("Type", selection: $type) {
+                Picker(AppDefaults.typeLabel, selection: $type) {
                     ForEach(types, id: \.self) {
                         Text($0)
                     }
@@ -37,12 +37,12 @@ struct AddView: View {
                 
                 HStack{
                     TextField(
-                        "Amount",
+                        AppDefaults.amountPlaceholder,
                         value: $amount,
                         format: .currency(code: currency)
                     )
                     .keyboardType(.decimalPad)
-                    .accessibilityIdentifier("AmountTextField")
+                    .accessibilityIdentifier(AppDefaults.amountAccessibilityID)
                     
                     Picker("", selection: $currency) {
                         ForEach(availableCurrencies, id:\.self){
@@ -51,9 +51,9 @@ struct AddView: View {
                     }
                 }
             }
-            .navigationTitle("Add new expense")
+            .navigationTitle(AppDefaults.navigationTitle)
             .toolbar{
-                Button("Save") {
+                Button(AppDefaults.saveButton) {
                     let item = ExpenseItem(name: name, type: type, amount: amount, currency: currency)
                     expenses.items.append(item)
                     dismiss()
