@@ -202,7 +202,6 @@ struct ContentView: View {
                 }
         )
         .accessibilityIdentifier("DraggableGradient")
-        //.animation(.bouncy, value:dragAmount)
     }
     
     var draggableText: some View{
