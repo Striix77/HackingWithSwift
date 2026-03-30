@@ -7,7 +7,6 @@
 import SwiftUI
 
 struct ExpensesListView: View {
-    @Binding var showingAddExpense: Bool
     @State var expenseType = ""
     
     let expenses: Expenses
@@ -50,15 +49,12 @@ struct ExpensesListView: View {
                 addExpenseButton
                 filterMenu
         }
-        .sheet(isPresented: $showingAddExpense) {
-            AddView(expenses: expenses)
-        }
     }
     
     private var addExpenseButton: some ToolbarContent {
         ToolbarItem(placement: .bottomBar) {
-            Button("Add expense", systemImage: "plus") {
-                showingAddExpense = true
+            NavigationLink("Add Expense"){
+                AddView(expenses: expenses)
             }
         }
     }
