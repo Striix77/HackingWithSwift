@@ -7,10 +7,13 @@
 import Foundation
 
 struct AppDefaults {
-    static let navigationTitle = "Add new expense"
+    static let navigationTitle = "iExpense"
+    static let expensesTitle = "Add new expense"
+    static let addExpansesButton = "Add Expense"
     static let namePlaceholder = "Name"
     static let amountPlaceholder = "Amount"
     static let typeLabel = "Type"
+    static let filterLabel = "Filter"
     static let saveButton = "Save"
     static let defaultAmount = 0.0
     
@@ -23,4 +26,7 @@ struct AppDefaults {
     
     static let nameAccessibilityID = "NameTextField"
     static let amountAccessibilityID = "AmountTextField"
+    static let expansesAccessibilityID = "ExpansesList"
+    
+    static let expenseTypesFilters = ["All", "Personal", "Business"]
 }

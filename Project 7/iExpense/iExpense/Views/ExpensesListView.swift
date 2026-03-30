@@ -11,7 +11,7 @@ struct ExpensesListView: View {
     
     let expenses: Expenses
     var removeItems: (IndexSet) -> Void
-    var expenseTypes = ["All", "Personal", "Business"]
+    var expenseTypes = AppDefaults.expenseTypesFilters
     
     var filteredExpenses: [ExpenseItem] {
         if expenseType == "" || expenseType == "All" {
@@ -43,8 +43,8 @@ struct ExpensesListView: View {
             }
             .onDelete(perform: removeItems)
         }
-        .accessibilityIdentifier("ExpansesList")
-        .navigationTitle("iExpense")
+        .accessibilityIdentifier(AppDefaults.expansesAccessibilityID)
+        .navigationTitle(AppDefaults.navigationTitle)
         .toolbar {
                 addExpenseButton
                 filterMenu
@@ -53,7 +53,7 @@ struct ExpensesListView: View {
     
     private var addExpenseButton: some ToolbarContent {
         ToolbarItem(placement: .bottomBar) {
-            NavigationLink("Add Expense"){
+            NavigationLink(AppDefaults.addExpansesButton){
                 AddView(expenses: expenses)
             }
         }
@@ -68,7 +68,7 @@ struct ExpensesListView: View {
                     }
                 }
             } label:{
-                Text(expenseType == "" ? "Filter" : expenseType)
+                Text(expenseType == "" ? AppDefaults.filterLabel : expenseType)
                     .foregroundStyle(.gray)
             }
         }

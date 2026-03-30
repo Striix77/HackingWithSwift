@@ -51,7 +51,7 @@ struct AddView: View {
                     }
                 }
             }
-            .navigationTitle(AppDefaults.navigationTitle)
+            .navigationTitle(AppDefaults.expensesTitle)
             .toolbar{
                 Button(AppDefaults.saveButton) {
                     let item = ExpenseItem(name: name, type: type, amount: amount, currency: currency)
