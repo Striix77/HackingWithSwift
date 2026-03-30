@@ -41,11 +41,7 @@ struct ContentView: View {
                 .navigationTitle("WordScramble")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
-                    ToolbarItem(placement: .bottomBar) {
-                        Button("Restart") {
-                            viewModel.startGame()
-                        }
-                    }
+                    restartButton
 
                     ToolbarItem(placement: .topBarTrailing) {
                         Text("Score: \(viewModel.score)")
@@ -68,9 +64,17 @@ struct ContentView: View {
         }
     }
     
-    var backgroundColor: some View {
+    private var backgroundColor: some View {
         Color(red: 0.18, green: 0.294, blue: 0.38)
             .ignoresSafeArea()
+    }
+    
+    private var restartButton: some ToolbarContent {
+        ToolbarItem(placement: .bottomBar) {
+            Button("Restart") {
+                viewModel.startGame()
+            }
+        }
     }
 
 }
