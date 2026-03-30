@@ -20,6 +20,43 @@ class GameViewModel {
 
     var showingError = false
 
+    func loadRootWord(from startWordsURL: URL?) throws {
+        guard let url = startWordsURL else {
+            throw GameError.fileNotFound
+        }
+
+        let startWords: String
+        do {
+            startWords = try String(contentsOf: url, encoding: .utf8)
+        } catch {
+            throw GameError.decodingFailed
+        }
+
+        let allWords = startWords.components(separatedBy: "\n").filter {
+            !$0.isEmpty
+        }
+
+        guard !allWords.isEmpty else {
+            throw GameError.emptyFile
+        }
+
+        if ProcessInfo.processInfo.arguments.contains("-testMode") {
+            rootWord = "scrumptious"
+        } else {
+            rootWord = allWords.randomElement() ?? "moist"
+        }
+
+    }
+
+    func loadStartWords() throws {
+        if let startWordsURL = Bundle.main.url(
+            forResource: "start",
+            withExtension: "txt"
+        ) {
+            try loadRootWord(from: startWordsURL)
+        }
+    }
+
     func startGame(with fixedWord: String? = nil) {
         if let word = fixedWord {
             rootWord = word
@@ -27,29 +64,15 @@ class GameViewModel {
             score = 0
             return
         }
-        
-        if let startWordsURL = Bundle.main.url(
-            forResource: "start",
-            withExtension: "txt"
-        ) {
-            if let startWords = try? String(
-                contentsOf: startWordsURL,
-                encoding: .utf8
-            ) {
-                let allWords = startWords.components(separatedBy: "\n")
-                if ProcessInfo.processInfo.arguments.contains("-testMode") {
-                    rootWord = "scrumptious"
-                } else {
-                    rootWord = allWords.randomElement() ?? "moist"
-                }
-                withAnimation {
-                    usedWords.removeAll()
-                }
-                score = 0
-                return
+        do {
+            try loadStartWords()
+            withAnimation {
+                usedWords.removeAll()
             }
+            score = 0
+        } catch {
+            fatalError(GameStrings.fatalError)
         }
-        fatalError(GameStrings.fatalError)
     }
 
     func addNewWord() {
