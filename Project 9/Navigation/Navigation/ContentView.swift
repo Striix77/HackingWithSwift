@@ -16,7 +16,14 @@ struct ContentView: View {
                     .navigationDestination(for: Int.self) { i in
                         DetailView(number: i, path: $path)
                     }
-    }
+                
+                List(0..<100) { i in
+                        NavigationLink("Select \(i)", value: "Hha")
+                    }
+                    .navigationDestination(for: String.self) { selection in
+                        Text("You selected \(selection)")
+                    }
+            }
         }
 }
 
