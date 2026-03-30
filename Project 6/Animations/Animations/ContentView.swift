@@ -42,7 +42,7 @@ struct ContentView: View {
         }
     }
 
-    var blurryButton: some View {
+    private var blurryButton: some View {
         Button(AppStrings.Buttons.tapMe) {
             animationAmount += 0.5
         }
@@ -53,7 +53,7 @@ struct ContentView: View {
 
     }
     
-    var springyButton: some View{
+    private var springyButton: some View{
         Button(AppStrings.Buttons.springMe) {
             springAnimationAmount += 0.5
         }
@@ -65,7 +65,7 @@ struct ContentView: View {
         )
     }
     
-    var easingButton: some View{
+    private var easingButton: some View{
         Button(AppStrings.Buttons.easeMe) {
             easeInOutAnimationAmount += 0.5
         }
@@ -78,7 +78,7 @@ struct ContentView: View {
         )
     }
     
-    var repeatingButton: some View{
+    private var repeatingButton: some View{
         Button(AppStrings.Buttons.repeatMe) {
             repeatAnimationAmount = 1.5
         }
@@ -91,7 +91,7 @@ struct ContentView: View {
         )
     }
     
-    var pulsatingButton: some View {
+    private var pulsatingButton: some View {
         Button(AppStrings.Buttons.pulseMe) {
             overlayAnimationAmount = 2
         }
@@ -109,7 +109,7 @@ struct ContentView: View {
         )
     }
     
-    var scalingStepper: some View{
+    private var scalingStepper: some View{
         VStack {
             Stepper(
                 AppStrings.Labels.scaleAmount,
@@ -130,7 +130,7 @@ struct ContentView: View {
         }
     }
     
-    var spinningButton: some View{
+    private var spinningButton: some View{
         Button(AppStrings.Buttons.spinMe) {
             withAnimation(.spring(duration: 0.7, bounce: 0.5)) {
                 spinAnimationAmount += 360
@@ -153,7 +153,7 @@ struct ContentView: View {
         )
     }
     
-    var shapeChangingButton: some View{
+    private var shapeChangingButton: some View{
         Button(AppStrings.Buttons.rectifyMe) {
             enabled.toggle()
         }
@@ -165,7 +165,7 @@ struct ContentView: View {
         .animation(.spring(duration: 1, bounce: 0.6), value: enabled)
     }
     
-    var draggableGradient: some View{
+    private var draggableGradient: some View{
         LinearGradient(
             colors: [.yellow, .red],
             startPoint: .topLeading,
@@ -186,7 +186,7 @@ struct ContentView: View {
         .accessibilityIdentifier(AppStrings.Identifiers.draggableGradient)
     }
     
-    var draggableText: some View{
+    private var draggableText: some View{
         HStack(spacing: 0) {
             ForEach(0..<letters.count, id: \.self) { num in
                 Text(String(letters[num]))
@@ -210,7 +210,7 @@ struct ContentView: View {
         )
     }
     
-    var toggleableRectangle: some View{
+    private var toggleableRectangle: some View{
         VStack {
             Button(AppStrings.Buttons.tapMe) {
                 withAnimation {
@@ -231,7 +231,7 @@ struct ContentView: View {
         }
     }
     
-    var clippingRectangle: some View{
+    private var clippingRectangle: some View{
         ZStack {
             Rectangle()
                 .fill(.blue)
