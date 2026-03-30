@@ -32,7 +32,7 @@ struct MissionDetailsView: View {
                     .font(.caption)
                     .foregroundStyle(.gray)
                 VStack(alignment: .leading) {
-                    Text("Crew")
+                    Text(AppDefaults.crewSectionTitle)
                         .font(.title.bold())
                         .padding(.bottom, 5)
                     
@@ -40,7 +40,7 @@ struct MissionDetailsView: View {
                     
                     separator
                     
-                    Text("Mission Highlights")
+                    Text(AppDefaults.missionHighlights)
                         .font(.title.bold())
                         .padding(.bottom, 5)
 

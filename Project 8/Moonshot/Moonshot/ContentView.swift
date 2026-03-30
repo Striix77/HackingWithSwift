@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var viewType = "Grid"
-    @State private var viewOpacity = 0.0
+    @State private var viewType = AppDefaults.defaultViewType
+    @State private var viewOpacity = AppDefaults.defaultOpacity
 
-    let viewTypes = ["Grid", "List"]
+    let viewTypes = AppDefaults.viewTypes
 
     var body: some View {
         NavigationStack {
@@ -31,15 +31,17 @@ struct ContentView: View {
                             }
                         }
                     } label: {
-                        Text("Show as")
+                        Text(AppDefaults.toolbarMenuLabel)
                     }
                 }
             }
-            .navigationTitle("Moonshot")
+            .navigationTitle(AppDefaults.navigationTitle)
             .background(.darkBackground)
             .preferredColorScheme(.dark)
         }
     }
+    
+    
 }
 
 #Preview {
