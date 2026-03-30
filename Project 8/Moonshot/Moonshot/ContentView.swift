@@ -23,17 +23,7 @@ struct ContentView: View {
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Menu {
-                        Picker("", selection: $viewType) {
-                            ForEach(viewTypes, id: \.self) { type in
-                                Text(type)
-                            }
-                        }
-                    } label: {
-                        Text(AppDefaults.toolbarMenuLabel)
-                    }
-                }
+                viewTypeMenu
             }
             .navigationTitle(AppDefaults.navigationTitle)
             .background(.darkBackground)
@@ -41,7 +31,19 @@ struct ContentView: View {
         }
     }
     
-    
+    private var viewTypeMenu: some ToolbarContent{
+        ToolbarItem(placement: .topBarTrailing) {
+            Menu {
+                Picker("", selection: $viewType) {
+                    ForEach(viewTypes, id: \.self) { type in
+                        Text(type)
+                    }
+                }
+            } label: {
+                Text(AppDefaults.toolbarMenuLabel)
+            }
+        }
+    }
 }
 
 #Preview {
