@@ -56,6 +56,7 @@ struct WordScrambleTests {
 
         #expect(viewModel.showingError == true)
         #expect(viewModel.errorTitle == GameStrings.isTooShortTitle)
+        #expect(viewModel.errorMessage == GameStrings.isTooShortMessage)
     }
 
 }
