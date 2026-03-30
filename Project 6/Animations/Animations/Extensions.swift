@@ -14,3 +14,9 @@ extension AnyTransition {
         )
     }
 }
+
+extension View {
+    func animatedButtonStyle(color: Color, textColor: Color = .white) -> some View {
+        modifier(AnimatedButtonStyle(color: color, textColor: textColor))
+    }
+}

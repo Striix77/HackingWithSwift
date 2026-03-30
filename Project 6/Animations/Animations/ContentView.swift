@@ -46,10 +46,7 @@ struct ContentView: View {
         Button("Tap me") {
             animationAmount += 0.5
         }
-        .padding(50)
-        .background(.red)
-        .foregroundStyle(.white)
-        .clipShape(.circle)
+        .animatedButtonStyle(color: .red)
         .scaleEffect(animationAmount)
         .blur(radius: (animationAmount - 1) * 3)
         .animation(.default, value: animationAmount)
@@ -60,10 +57,7 @@ struct ContentView: View {
         Button("Spring me") {
             springAnimationAmount += 0.5
         }
-        .padding(50)
-        .background(.yellow)
-        .foregroundStyle(.black)
-        .clipShape(.circle)
+        .animatedButtonStyle(color: .yellow, textColor: .black)
         .scaleEffect(springAnimationAmount)
         .animation(
             .spring(duration: 0.5, bounce: 0.3),
@@ -75,10 +69,7 @@ struct ContentView: View {
         Button("Ease me") {
             easeInOutAnimationAmount += 0.5
         }
-        .padding(50)
-        .background(.blue)
-        .foregroundStyle(.white)
-        .clipShape(.circle)
+        .animatedButtonStyle(color: .blue)
         .scaleEffect(easeInOutAnimationAmount)
         .animation(
             .easeInOut(duration: 1)
@@ -91,10 +82,7 @@ struct ContentView: View {
         Button("Repeat me") {
             repeatAnimationAmount = 1.5
         }
-        .padding(50)
-        .background(.green)
-        .foregroundStyle(.white)
-        .clipShape(.circle)
+        .animatedButtonStyle(color: .green)
         .scaleEffect(repeatAnimationAmount)
         .animation(
             .easeInOut(duration: 1)
@@ -107,10 +95,7 @@ struct ContentView: View {
         Button("Pulse me") {
             overlayAnimationAmount = 2
         }
-        .padding(50)
-        .background(.cyan)
-        .foregroundStyle(.white)
-        .clipShape(.circle)
+        .animatedButtonStyle(color: .cyan)
         .overlay(
             Circle()
                 .stroke(.cyan)
@@ -140,10 +125,7 @@ struct ContentView: View {
             Button("Tap Me") {
                 stepperAnimationAmount += 0.5
             }
-            .padding(50)
-            .background(.red)
-            .foregroundStyle(.white)
-            .clipShape(.circle)
+            .animatedButtonStyle(color: .mint)
             .scaleEffect(stepperAnimationAmount)
         }
     }
@@ -271,16 +253,7 @@ struct ContentView: View {
 
 }
 
-struct CornerRotateModifier: ViewModifier {
-    let amount: Double
-    let anchor: UnitPoint
 
-    func body(content: Content) -> some View {
-        content
-            .rotationEffect(.degrees(amount), anchor: anchor)
-            .clipped()
-    }
-}
 
 
 #Preview {
