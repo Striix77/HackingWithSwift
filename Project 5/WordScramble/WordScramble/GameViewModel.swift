@@ -86,7 +86,7 @@ class GameViewModel {
         )
 
         guard !isTooShort(answer) else {
-            wordError(
+            showError(
                 title: GameStrings.isTooShortTitle,
                 message: GameStrings.isTooShortMessage
             )
@@ -94,7 +94,7 @@ class GameViewModel {
         }
 
         guard isOriginal(answer) else {
-            wordError(
+            showError(
                 title: GameStrings.isOriginalTitle,
                 message: GameStrings.isOriginalMessage
             )
@@ -102,7 +102,7 @@ class GameViewModel {
         }
 
         guard isReal(answer) else {
-            wordError(
+            showError(
                 title: GameStrings.isRealTitle,
                 message: GameStrings.isRealMessage
             )
@@ -110,7 +110,7 @@ class GameViewModel {
         }
 
         guard isPossible(answer) else {
-            wordError(
+            showError(
                 title: GameStrings.isPossibleTitle,
                 message: GameStrings.isPossibleMessage(rootWord)
 
@@ -158,7 +158,7 @@ class GameViewModel {
         word.count < 3
     }
 
-    func wordError(title: String, message: String) {
+    func showError(title: String, message: String) {
         errorTitle = title
         errorMessage = message
         showingError = true
