@@ -11,16 +11,16 @@ struct DetailView: View {
     @Binding var path: NavigationPath
 
     var body: some View {
-        NavigationLink("Go to Random Number", value: Int.random(in: 1...1000))
+        NavigationLink(AppStrings.navigationLinkRandomNumber, value: Int.random(in: 1...1000))
             .toolbar {
                 navigateHome
             }
-            .navigationTitle("Number: \(number)")
+            .navigationTitle(AppStrings.detailViewTitle(number: number))
     }
     
     private var navigateHome: some ToolbarContent{
         ToolbarItem(placement: .confirmationAction){
-            Button("Home") {
+            Button(AppStrings.detailViewHomeButton) {
                 path = NavigationPath()
             }
         }

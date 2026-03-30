@@ -22,15 +22,15 @@ struct ContentView: View {
     }
 
     private var stringNavigationList: some View {
-        List(0..<100) { i in
-            NavigationLink("Select \(i)", value: String(i + 7))
+        List(0..<100) { number in
+            NavigationLink(AppStrings.selectText(number: number), value: String(number + 7))
         }
         .navigationDestination(for: String.self) { selection in
             VStack {
                 List(0..<100) { number in
                     stringTitle = selection
                     return Text(
-                        "\(number). You selected \(selection). That's a string btw."
+                        AppStrings.stringListText(number: number, selection: selection)
                     )
                 }
 
