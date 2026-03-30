@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var pathStore = PathStore()
+    @State private var stringTitle = ""
 
     var body: some View {
         NavigationStack(path: $pathStore.path) {
@@ -27,13 +28,14 @@ struct ContentView: View {
         .navigationDestination(for: String.self) { selection in
             VStack {
                 List(0..<100) { number in
-                    Text(
+                    stringTitle = selection
+                    return Text(
                         "\(number). You selected \(selection). That's a string btw."
                     )
                 }
 
             }
-            .navigationTitle("\(selection)")
+            .navigationTitle($stringTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.blue)
             .toolbarColorScheme(.light)
