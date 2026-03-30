@@ -15,6 +15,8 @@ class GameViewModel {
     private(set) var errorMessage = ""
 
     private(set) var score = 0
+    
+    private let checker = UITextChecker()
 
     var newWord = ""
 
@@ -141,7 +143,6 @@ class GameViewModel {
     }
 
     func isReal(_ word: String) -> Bool {
-        let checker = UITextChecker()
         let range = NSRange(location: 0, length: word.utf16.count)
         let misspelledRange = checker.rangeOfMisspelledWord(
             in: word,
