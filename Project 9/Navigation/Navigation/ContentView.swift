@@ -34,6 +34,9 @@ struct ContentView: View {
 
             }
             .navigationTitle("\(selection)")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(.blue)
+            .toolbarColorScheme(.light)
         }
     }
 }
