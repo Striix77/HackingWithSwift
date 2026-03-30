@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var viewModel = GameViewModel()
+    @State private var newWord = ""
 
     init() {
         UINavigationBar.appearance().titleTextAttributes = [
@@ -35,7 +36,7 @@ struct ContentView: View {
                 backgroundColor
                 List {
                     RootWordTitleView(rootWord: viewModel.rootWord)
-                    ScrambledWordInputView(newWord: $viewModel.newWord)
+                    ScrambledWordInputView(newWord: $newWord)
                     ScrambledWordListView(usedWords: viewModel.usedWords)
                 }
                 .navigationTitle("WordScramble")
@@ -48,7 +49,9 @@ struct ContentView: View {
                 .scrollContentBackground(.hidden)
 
             }
-            .onSubmit(viewModel.addNewWord)
+            .onSubmit{
+                viewModel.addNewWord(newWord: newWord)
+            }
             .onAppear{
                 viewModel.startGame()
             }

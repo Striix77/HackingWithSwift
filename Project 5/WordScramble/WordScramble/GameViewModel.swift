@@ -18,7 +18,6 @@ class GameViewModel {
     
     private let checker = UITextChecker()
 
-    var newWord = ""
 
     var showingError = false
     
@@ -80,7 +79,7 @@ class GameViewModel {
         }
     }
 
-    func addNewWord() {
+    func addNewWord(newWord: String) {
         let answer = newWord.lowercased().trimmingCharacters(
             in: .whitespacesAndNewlines
         )
@@ -122,7 +121,6 @@ class GameViewModel {
             usedWords.insert(answer, at: 0)
         }
         score += answer.count
-        newWord = ""
     }
 
     func isOriginal(_ word: String) -> Bool {
