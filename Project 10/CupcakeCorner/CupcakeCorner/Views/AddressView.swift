@@ -18,6 +18,12 @@ struct AddressView: View {
                 TextField("City", text: $order.city)
                 TextField("Zip", text: $order.zip)
             }
+
+            Section {
+                NavigationLink("Check out") {
+                    CheckoutView(order: order)
+                }
+            }
         }
         .navigationTitle("Delivery details")
         .navigationBarTitleDisplayMode(.inline)
