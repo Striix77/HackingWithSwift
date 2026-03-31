@@ -12,12 +12,7 @@ struct AddressView: View {
 
     var body: some View {
         Form {
-            Section {
-                TextField("Name", text: $order.name)
-                TextField("Street Address", text: $order.streetAddress)
-                TextField("City", text: $order.city)
-                TextField("Zip", text: $order.zip)
-            }
+            addressDetailsSection
 
             Section {
                 NavigationLink("Check out") {
@@ -28,6 +23,15 @@ struct AddressView: View {
         }
         .navigationTitle("Delivery details")
         .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    private var addressDetailsSection: some View {
+        Section {
+            TextField("Name", text: $order.name)
+            TextField("Street Address", text: $order.streetAddress)
+            TextField("City", text: $order.city)
+            TextField("Zip", text: $order.zip)
+        }
     }
 }
 
