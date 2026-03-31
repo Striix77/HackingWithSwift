@@ -14,25 +14,7 @@ struct ContentView: View {
         NavigationStack {
             Form {
                 cakeTypesSection
-
-                Section {
-                    Toggle(
-                        "Any special requests?",
-                        isOn: $order.specialRequestEnabled
-                    )
-
-                        if order.specialRequestEnabled {
-                            Toggle(
-                                "Add extra frosting",
-                                isOn: $order.extraFrosting
-                            )
-
-                            Toggle(
-                                "Add extra sprinkles",
-                                isOn: $order.addSprinkles
-                            )
-                        }
-                }
+                specialRequestSection
                 
                 Section {
                     NavigationLink("Delivery details") {
@@ -57,6 +39,27 @@ struct ContentView: View {
                 value: $order.quantity,
                 in: 3...20
             )
+        }
+    }
+    
+    private var specialRequestSection: some View{
+        Section {
+            Toggle(
+                "Any special requests?",
+                isOn: $order.specialRequestEnabled
+            )
+
+                if order.specialRequestEnabled {
+                    Toggle(
+                        "Add extra frosting",
+                        isOn: $order.extraFrosting
+                    )
+
+                    Toggle(
+                        "Add extra sprinkles",
+                        isOn: $order.addSprinkles
+                    )
+                }
         }
     }
 }
