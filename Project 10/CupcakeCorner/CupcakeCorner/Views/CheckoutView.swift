@@ -8,20 +8,35 @@
 import SwiftUI
 
 struct CheckoutView: View {
+    @State private var viewModel : CheckoutViewModel
     var order: Order
+    
+    init(order: Order) {
+        self.order = order
+        self.viewModel = CheckoutViewModel(order: order)
+    }
 
     var body: some View {
         ScrollView {
             VStack {
                 CheckoutHeaderView(order: order)
 
-                Button("Place Order", action: {})
-                    .padding()
+                Button("Place Order") {
+                    Task{
+                        await viewModel.placeOrder()
+                    }
+                }
+                .padding()
             }
         }
         .navigationTitle("Check out")
         .navigationBarTitleDisplayMode(.inline)
         .scrollBounceBehavior(.basedOnSize)
+        .alert("Thank you!", isPresented: $viewModel.showingConfirmation) {
+            Button("OK") { }
+        } message: {
+            Text(viewModel.confirmationMessage)
+        }
     }
 
 }
