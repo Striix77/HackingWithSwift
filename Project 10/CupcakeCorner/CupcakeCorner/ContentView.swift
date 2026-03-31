@@ -15,12 +15,7 @@ struct ContentView: View {
             Form {
                 cakeTypesSection
                 specialRequestSection
-                
-                Section {
-                    NavigationLink("Delivery details") {
-                        AddressView(order: order)
-                    }
-                }
+                deliverySection
             }
             .navigationTitle("Cupcake Corner")
         }
@@ -60,6 +55,14 @@ struct ContentView: View {
                         isOn: $order.addSprinkles
                     )
                 }
+        }
+    }
+    
+    private var deliverySection: some View{
+        Section {
+            NavigationLink("Delivery details") {
+                AddressView(order: order)
+            }
         }
     }
 }
