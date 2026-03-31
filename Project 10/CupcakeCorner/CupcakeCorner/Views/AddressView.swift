@@ -13,13 +13,7 @@ struct AddressView: View {
     var body: some View {
         Form {
             addressDetailsSection
-
-            Section {
-                NavigationLink("Check out") {
-                    CheckoutView(order: order)
-                }
-            }
-            .disabled(order.hasValidAddress == false)
+            checkoutSection
         }
         .navigationTitle("Delivery details")
         .navigationBarTitleDisplayMode(.inline)
@@ -32,6 +26,15 @@ struct AddressView: View {
             TextField("City", text: $order.city)
             TextField("Zip", text: $order.zip)
         }
+    }
+    
+    private var checkoutSection: some View{
+        Section {
+            NavigationLink("Check out") {
+                CheckoutView(order: order)
+            }
+        }
+        .disabled(order.hasValidAddress == false)
     }
 }
 
