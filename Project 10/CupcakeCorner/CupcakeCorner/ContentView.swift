@@ -13,19 +13,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section {
-                    Picker("Select your cake type", selection: $order.type) {
-                        ForEach(Order.types.indices, id: \.self) {
-                            Text(Order.types[$0])
-                        }
-                    }
-
-                    Stepper(
-                        "Number of cakes: \(order.quantity)",
-                        value: $order.quantity,
-                        in: 3...20
-                    )
-                }
+                cakeTypesSection
 
                 Section {
                     Toggle(
@@ -53,6 +41,22 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Cupcake Corner")
+        }
+    }
+    
+    private var cakeTypesSection: some View{
+        Section {
+            Picker("Select your cake type", selection: $order.type) {
+                ForEach(Order.types.indices, id: \.self) {
+                    Text(Order.types[$0])
+                }
+            }
+
+            Stepper(
+                "Number of cakes: \(order.quantity)",
+                value: $order.quantity,
+                in: 3...20
+            )
         }
     }
 }
